@@ -26,7 +26,7 @@ private val DarkColorPalette = darkColorScheme(
 )
 
 @Composable
-fun BudgetTrackerTheme(
+fun YourMoneyTheme(
     content: @Composable () -> Unit
 ) {
     val colors = DarkColorPalette

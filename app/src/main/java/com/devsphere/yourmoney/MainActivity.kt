@@ -17,6 +17,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.devsphere.yourmoney.pages.*
 import com.devsphere.yourmoney.ui.theme.YourMoneyTheme
 
 class MainActivity : ComponentActivity() {
@@ -28,7 +29,6 @@ class MainActivity : ComponentActivity() {
                 val navController = rememberNavController()
                 val backStackEntry = navController.currentBackStackEntryAsState()
 
-                // A surface container using the 'background' color from the theme
                 Scaffold(
                     bottomBar = {
                         NavigationBar {
@@ -97,7 +97,7 @@ class MainActivity : ComponentActivity() {
                                         .fillMaxSize()
                                         .padding(innerPadding),
                                 ) {
-                                    Greeting("Expenses")
+                                    Expenses(navController,"Expenses")
                                 }
                             }
 
@@ -107,7 +107,7 @@ class MainActivity : ComponentActivity() {
                                         .fillMaxSize()
                                         .padding(innerPadding),
                                 ) {
-                                    Greeting("Reports")
+                                    Reports(navController,"Reports")
                                 }
                             }
 
@@ -117,7 +117,7 @@ class MainActivity : ComponentActivity() {
                                         .fillMaxSize()
                                         .padding(innerPadding),
                                 ) {
-                                    Greeting("Add")
+                                    Add(navController,"Add")
                                 }
                             }
 
@@ -127,7 +127,7 @@ class MainActivity : ComponentActivity() {
                                         .fillMaxSize()
                                         .padding(innerPadding),
                                 ) {
-                                    Greeting("Settings")
+                                    Settings(navController,"Settings")
                                 }
                             }
 
@@ -137,7 +137,7 @@ class MainActivity : ComponentActivity() {
                                         .fillMaxSize()
                                         .padding(innerPadding),
                                 ) {
-                                    Greeting("Settings")
+                                    Greeting("Categories")
                                 }
                             }
                         }

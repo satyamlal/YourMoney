@@ -10,7 +10,7 @@ import com.devsphere.yourmoney.ui.theme.TopAppBarBackground
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Add(navController: NavController, name: String) {
+fun Add(navController: NavController) {
     Scaffold(
         topBar = {
             MediumTopAppBar(title = {Text("Add")}, colors = TopAppBarDefaults.mediumTopAppBarColors(

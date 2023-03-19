@@ -11,7 +11,7 @@ import com.devsphere.yourmoney.ui.theme.TopAppBarBackground
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Expenses(navController: NavController, name: String) {
+fun Expenses(navController: NavController) {
     Scaffold(
         topBar = {
             MediumTopAppBar(title = {Text("Expenses")}, colors = TopAppBarDefaults.mediumTopAppBarColors(

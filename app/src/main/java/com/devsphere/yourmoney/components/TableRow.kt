@@ -17,7 +17,7 @@ import com.devsphere.yourmoney.ui.theme.Typography
 @Composable
 fun TableRow(
     label: String,
-    onClick: (String) -> Unit,
+    onClick: (String) -> Unit = {},
     hasArrow: Boolean = false,
     isDestructive: Boolean = false
 ) {

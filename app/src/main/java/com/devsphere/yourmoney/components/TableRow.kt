@@ -17,19 +17,19 @@ import com.devsphere.yourmoney.ui.theme.Typography
 @Composable
 fun TableRow(
     label: String,
-    onClick: (String) -> Unit = {},
+    modifier: Modifier = Modifier,
+    detail: (@Composable RowScope.() -> Unit)?,
     hasArrow: Boolean = false,
-    isDestructive: Boolean = false
+    isDestructive: Boolean = false,
 ) {
 
     val textColor = if (isDestructive) Destructive else TextPrimary
 
     Row(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
-            .clickable{onClick(label)}
-        .padding(horizontal = 16.dp, vertical = 10.dp),
-    horizontalArrangement = Arrangement.SpaceBetween
+            .padding(horizontal = 16.dp, vertical = 10.dp),
+        horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Text(text = label, style = Typography.bodyMedium, color = textColor)
         if (hasArrow) {

@@ -15,6 +15,7 @@ import com.devsphere.yourmoney.ui.theme.Shapes
 import com.devsphere.yourmoney.ui.theme.BackgroundElevated
 import com.devsphere.yourmoney.ui.theme.TopAppBarBackground
 import com.devsphere.yourmoney.components.TableRow
+import com.devsphere.yourmoney.ui.theme.DividerColor
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -29,14 +30,24 @@ fun Settings(navController: NavController) {
         },
         content = { innerPadding ->
             Column(modifier = Modifier.padding(innerPadding)) {
-                Column(modifier = Modifier
-                    .padding(16.dp)
-                    .clip(Shapes.medium)
-                    .background(BackgroundElevated)
-                    .fillMaxWidth()
+                Column(
+                    modifier = Modifier
+                        .padding(16.dp)
+                        .clip(Shapes.medium)
+                        .background(BackgroundElevated)
+                        .fillMaxWidth()
                 ) {
-                    TableRow("Categories", hasArrow = true)
-                    TableRow("Erase all data", isDestructive = true)
+                    TableRow("Categories", hasArrow = true, onClick = { _ ->
+                        run {
+                            navController.navigate("settings/categories")
+                        }
+                    })
+                    Divider(
+                        modifier = Modifier.padding(start = 16.dp, end = 16.dp),
+                        thickness = 1.dp,
+                        color = DividerColor
+                    )
+                    TableRow("Erase all data", isDestructive = true, onClick = {})
                 }
             }
         }

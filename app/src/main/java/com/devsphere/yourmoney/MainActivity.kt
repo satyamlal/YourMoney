@@ -16,6 +16,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.devsphere.yourmoney.pages.*
+import com.devsphere.yourmoney.ui.theme.TopAppBarBackground
 import com.devsphere.yourmoney.ui.theme.YourMoneyTheme
 
 class MainActivity : ComponentActivity() {
@@ -29,7 +30,7 @@ class MainActivity : ComponentActivity() {
 
                 Scaffold(
                     bottomBar = {
-                        NavigationBar {
+                        NavigationBar(containerColor = TopAppBarBackground) {
                             NavigationBarItem(
                                 selected = backStackEntry.value?.destination?.route == "expenses",
                                 onClick = { navController.navigate("expenses") },

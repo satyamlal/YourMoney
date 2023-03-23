@@ -35,8 +35,8 @@ fun Settings(navController: NavController) {
                     .background(BackgroundElevated)
                     .fillMaxWidth()
                 ) {
-                    TableRow("Categories")
-                    TableRow("Erase all data")
+                    TableRow("Categories", hasArrow = true)
+                    TableRow("Erase all data", isDestructive = true)
                 }
             }
         }

@@ -3,6 +3,7 @@ package com.devsphere.yourmoney.pages
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -37,6 +38,11 @@ fun Add(navController: NavController) {
 
     var selectedRecurrence by remember {
         mutableStateOf(recurrences[0])
+    }
+
+    val categories = listOf("Groceries", "Bills", "Fruits", "Vegetables")
+    var selectedCategory by remember {
+        mutableStateOf(categories[0])
     }
 
     Scaffold(
@@ -81,7 +87,7 @@ fun Add(navController: NavController) {
                         var recurrenceMenuOpened by remember {
                             mutableStateOf(false)
                         }
-                        TextButton(onClick = { recurrenceMenuOpened = true }) {
+                        TextButton(onClick = { recurrenceMenuOpened = true }, shape = Shapes.large) {
                             Text(selectedRecurrence)
                             DropdownMenu(
                                 expanded = recurrenceMenuOpened,
@@ -129,7 +135,39 @@ fun Add(navController: NavController) {
                         thickness = 1.dp,
                         color = DividerColor
                     )
-                    TableRow("Category")
+                    TableRow("Category") {
+                        var categoriesMenuOpened by remember {
+                            mutableStateOf(false)
+                        }
+                        TextButton(onClick = { categoriesMenuOpened = true }, shape = Shapes.large) {
+                            Text(selectedCategory)
+                            DropdownMenu(
+                                expanded = categoriesMenuOpened,
+                                onDismissRequest = { categoriesMenuOpened = false }) {
+                                categories.forEach { category ->
+                                    DropdownMenuItem(
+                                        text = {
+                                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                                Surface(
+                                                    modifier = Modifier.size(10.dp),
+                                                    shape = CircleShape,
+                                                    color = Primary
+                                                ) {}
+                                                Text(
+                                                    category,
+                                                    modifier = Modifier.padding(start = 8.dp)
+                                                )
+                                            }
+                                        },
+                                        onClick = {
+                                            selectedCategory = category
+                                            categoriesMenuOpened = false
+                                        }
+                                    )
+                                }
+                            }
+                        }
+                    }
                 }
                 Button(
                     onClick = { /*TODO*/ },

@@ -1,6 +1,8 @@
 package com.devsphere.yourmoney.pages
 
+import android.app.DatePickerDialog
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
+import android.widget.DatePicker
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -10,6 +12,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
@@ -23,6 +26,8 @@ import com.devsphere.yourmoney.components.UnstyledTextField
 import com.devsphere.yourmoney.models.Recurrence
 import com.devsphere.yourmoney.ui.theme.*
 import com.devsphere.yourmoney.ui.theme.TopAppBarBackground
+import java.time.LocalDate
+import java.util.*
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -44,6 +49,33 @@ fun Add(navController: NavController) {
     var selectedCategory by remember {
         mutableStateOf(categories[0])
     }
+
+    val mContext = LocalContext.current
+
+    val mYear: Int
+    val mMonth: Int
+    val mDay: Int
+
+    val mCalendar = Calendar.getInstance()
+
+    mYear = mCalendar.get(Calendar.YEAR)
+    mMonth = mCalendar.get(Calendar.MONTH) + 1
+    mDay = mCalendar.get(Calendar.DAY_OF_MONTH)
+
+    var mDate by remember {
+        mutableStateOf("${mCalendar.get(Calendar.DAY_OF_MONTH)}-${mCalendar.get(Calendar.MONTH) + 1}-${mCalendar.get(Calendar.YEAR)}")
+    }
+
+    val mDatePicker = DatePickerDialog(
+        mContext,
+        { _: DatePicker, selectedYear: Int, selectedMonth: Int, selectedDay: Int ->
+            mDate  = "${selectedDay}-${selectedMonth + 1}-${selectedYear}"
+        },
+        mYear,
+        mMonth,
+        mDay
+    )
+    mDatePicker.datePicker.maxDate = mCalendar.timeInMillis
 
     Scaffold(
         topBar = {
@@ -110,7 +142,11 @@ fun Add(navController: NavController) {
                         thickness = 1.dp,
                         color = DividerColor
                     )
-                    TableRow("Date")
+                    TableRow("Date") {
+                        TextButton(onClick = { mDatePicker.show() }) {
+                            Text(mDate)
+                        }
+                    }
 
                     Divider(
                         modifier = Modifier.padding(start = 16.dp, end = 16.dp),

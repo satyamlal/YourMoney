@@ -7,6 +7,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.*
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.unit.dp
 import com.devsphere.yourmoney.R
 import com.devsphere.yourmoney.ui.theme.Destructive
@@ -22,14 +23,14 @@ fun TableRow(
     content: (@Composable RowScope.() -> Unit)? = null,
 ) {
 
-//    val textColor = if (isDestructive) Destructive else TextPrimary
+    val textColor = if (isDestructive) Destructive else TextPrimary
 
     Row(
         modifier = modifier.fillMaxWidth().padding(horizontal = 16.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
-//        verticalAlignment = Arrangement.CenterVertically,
+        verticalAlignment = CenterVertically,
     ) {
-        Text(text = label, style = Typography.bodyMedium, color = TextPrimary, modifier = Modifier.padding(vertical = 10.dp))
+        Text(text = label, style = Typography.bodyMedium, color = textColor, modifier = Modifier.padding(vertical = 10.dp))
         if (hasArrow) {
             Icon(
                 painterResource(id = R.drawable.chevron_right),

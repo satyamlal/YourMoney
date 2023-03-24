@@ -2,7 +2,9 @@ package com.devsphere.yourmoney.pages
 
 import android.app.DatePickerDialog
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
+import android.os.Build
 import android.widget.DatePicker
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -10,6 +12,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
@@ -26,10 +29,12 @@ import com.devsphere.yourmoney.components.UnstyledTextField
 import com.devsphere.yourmoney.models.Recurrence
 import com.devsphere.yourmoney.ui.theme.*
 import com.devsphere.yourmoney.ui.theme.TopAppBarBackground
+import com.marosseleng.compose.material3.datetimepickers.date.ui.dialog.DatePickerDialog
 import java.time.LocalDate
 import java.util.*
 
-@OptIn(ExperimentalMaterial3Api::class)
+@RequiresApi(Build.VERSION_CODES.O)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
 @Composable
 fun Add(navController: NavController) {
 
@@ -63,13 +68,19 @@ fun Add(navController: NavController) {
     mDay = mCalendar.get(Calendar.DAY_OF_MONTH)
 
     var mDate by remember {
-        mutableStateOf("${mCalendar.get(Calendar.DAY_OF_MONTH)}-${mCalendar.get(Calendar.MONTH) + 1}-${mCalendar.get(Calendar.YEAR)}")
+        mutableStateOf(
+            "${mCalendar.get(Calendar.DAY_OF_MONTH)}-${mCalendar.get(Calendar.MONTH) + 1}-${
+                mCalendar.get(
+                    Calendar.YEAR
+                )
+            }"
+        )
     }
 
     val mDatePicker = DatePickerDialog(
         mContext,
         { _: DatePicker, selectedYear: Int, selectedMonth: Int, selectedDay: Int ->
-            mDate  = "${selectedDay}-${selectedMonth + 1}-${selectedYear}"
+            mDate = "${selectedDay}-${selectedMonth + 1}-${selectedYear}"
         },
         mYear,
         mMonth,
@@ -119,7 +130,10 @@ fun Add(navController: NavController) {
                         var recurrenceMenuOpened by remember {
                             mutableStateOf(false)
                         }
-                        TextButton(onClick = { recurrenceMenuOpened = true }, shape = Shapes.large) {
+                        TextButton(
+                            onClick = { recurrenceMenuOpened = true },
+                            shape = Shapes.large
+                        ) {
                             Text(selectedRecurrence)
                             DropdownMenu(
                                 expanded = recurrenceMenuOpened,
@@ -143,9 +157,14 @@ fun Add(navController: NavController) {
                         color = DividerColor
                     )
                     TableRow("Date") {
-                        TextButton(onClick = { mDatePicker.show() }) {
-                            Text(mDate)
-                        }
+//                        TextButton(onClick = { mDatePicker.show() }) {
+//                            Text(mDate)
+//                        }
+                        DatePickerDialog(
+                            onDismissRequest = { /*TODO*/ },
+                            onDateChange = {},
+                            initialDate = LocalDate.now()
+                        )
                     }
 
                     Divider(
@@ -175,7 +194,10 @@ fun Add(navController: NavController) {
                         var categoriesMenuOpened by remember {
                             mutableStateOf(false)
                         }
-                        TextButton(onClick = { categoriesMenuOpened = true }, shape = Shapes.large) {
+                        TextButton(
+                            onClick = { categoriesMenuOpened = true },
+                            shape = Shapes.large
+                        ) {
                             Text(selectedCategory)
                             DropdownMenu(
                                 expanded = categoriesMenuOpened,

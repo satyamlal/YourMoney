@@ -26,6 +26,19 @@ import com.devsphere.yourmoney.ui.theme.TopAppBarBackground
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Add(navController: NavController) {
+
+    val recurrences = listOf(
+        "None",
+        "Daily",
+        "Weekly",
+        "Monthly",
+        "Yearly"
+    )
+
+    var selectedRecurrence by remember {
+        mutableStateOf(recurrences[0])
+    }
+
     Scaffold(
         topBar = {
             MediumTopAppBar(
@@ -35,7 +48,10 @@ fun Add(navController: NavController) {
             )
         },
         content = { innerPadding ->
-            Column(modifier = Modifier.padding(innerPadding), horizontalAlignment = Alignment.CenterHorizontally) {
+            Column(
+                modifier = Modifier.padding(innerPadding),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
                 Column(
                     modifier = Modifier
                         .padding(16.dp)
@@ -62,20 +78,22 @@ fun Add(navController: NavController) {
                         color = DividerColor
                     )
                     TableRow("Recurrence") {
-                        var recurrenceMenuOpened = remember {
+                        var recurrenceMenuOpened by remember {
                             mutableStateOf(false)
                         }
-                        TextButton(
-                            onClick = { recurrenceMenuOpened = true }, shape = Shapes.large
-                        ) {
-                            Text(state.recurrence?.name ?: Recurrence.None.name)
-                            DropdownMenu(expanded = recurrenceMenuOpened,
-                                onDismissRequest = { recurrenceMenuOpened.value = false }) {
+                        TextButton(onClick = { recurrenceMenuOpened = true }) {
+                            Text(selectedRecurrence)
+                            DropdownMenu(
+                                expanded = recurrenceMenuOpened,
+                                onDismissRequest = { recurrenceMenuOpened = false }) {
                                 recurrences.forEach { recurrence ->
-                                    DropdownMenuItem(text = { Text(recurrence.name) }, onClick = {
-                                        vm.setRecurrence(recurrence)
-                                        recurrenceMenuOpened.value = false
-                                    })
+                                    DropdownMenuItem(
+                                        text = { Text(recurrence) },
+                                        onClick = {
+                                            selectedRecurrence = recurrence
+                                            recurrenceMenuOpened = false
+                                        }
+                                    )
                                 }
                             }
                         }

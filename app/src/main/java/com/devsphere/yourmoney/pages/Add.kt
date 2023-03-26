@@ -2,23 +2,17 @@ package com.devsphere.yourmoney.pages
 
 import android.app.DatePickerDialog
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
-import android.os.Build
 import android.widget.DatePicker
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -28,22 +22,18 @@ import com.devsphere.yourmoney.components.TableRow
 import com.devsphere.yourmoney.components.UnstyledTextField
 import com.devsphere.yourmoney.models.Recurrence
 import com.devsphere.yourmoney.ui.theme.*
-import com.devsphere.yourmoney.ui.theme.TopAppBarBackground
-import com.marosseleng.compose.material3.datetimepickers.date.ui.dialog.DatePickerDialog
-import java.time.LocalDate
 import java.util.*
 
-@RequiresApi(Build.VERSION_CODES.O)
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Add(navController: NavController) {
 
     val recurrences = listOf(
-        "None",
-        "Daily",
-        "Weekly",
-        "Monthly",
-        "Yearly"
+        Recurrence.None,
+        Recurrence.Daily,
+        Recurrence.Weekly,
+        Recurrence.Monthly,
+        Recurrence.Yearly,
     )
 
     var selectedRecurrence by remember {
@@ -134,13 +124,13 @@ fun Add(navController: NavController) {
                             onClick = { recurrenceMenuOpened = true },
                             shape = Shapes.large
                         ) {
-                            Text(selectedRecurrence)
+                            Text(selectedRecurrence.name)
                             DropdownMenu(
                                 expanded = recurrenceMenuOpened,
                                 onDismissRequest = { recurrenceMenuOpened = false }) {
                                 recurrences.forEach { recurrence ->
                                     DropdownMenuItem(
-                                        text = { Text(recurrence) },
+                                        text = { Text(recurrence.name) },
                                         onClick = {
                                             selectedRecurrence = recurrence
                                             recurrenceMenuOpened = false
@@ -160,11 +150,11 @@ fun Add(navController: NavController) {
 //                        TextButton(onClick = { mDatePicker.show() }) {
 //                            Text(mDate)
 //                        }
-                        DatePickerDialog(
-                            onDismissRequest = { /*TODO*/ },
-                            onDateChange = {},
-                            initialDate = LocalDate.now()
-                        )
+//                        DatePickerDialog(
+//                            onDismissRequest = { /*TODO*/ },
+//                            onDateChange = {},
+//                            initialDate = LocalDate.now()
+//                        )
                     }
 
                     Divider(

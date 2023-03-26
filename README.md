@@ -19,7 +19,7 @@ And this problem taught me how to revert back to the previous version of my repo
   > git reset --hard "put your commit id here within the brackets"
 
 
-  // If you are using powershell or terminal opened directly from your terminal then type this:
+  // If you are using powershell or terminal opened directly from your project folder then type this:
   > git push -f github master
 
   // If you are using and IDE then write this:

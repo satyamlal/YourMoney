@@ -50,10 +50,11 @@ fun UnstyledTextField(
 ) {
     // If color is not provided via the text style, use content color as a default
     val textColor = TextPrimary
-    val mergedTextStyle =
-        textStyle.merge(TextStyle(color = textColor))
+    val mergedTextStyle = textStyle.merge(TextStyle(color = textColor))
 
-    BasicTextField(value = value,
+    BasicTextField(
+        value = value,
+        modifier = Modifier,
         onValueChange = onValueChange,
         enabled = enabled,
         readOnly = readOnly,
@@ -74,7 +75,6 @@ fun UnstyledTextField(
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = arrangement,
-                        verticalAlignment = CenterVertically
                     ) {
                         placeholder?.invoke()
                     }
@@ -98,5 +98,6 @@ fun UnstyledTextField(
                     disabledIndicatorColor = Color.Transparent,
                 ),
             )
-        })
+        }
+    )
 }

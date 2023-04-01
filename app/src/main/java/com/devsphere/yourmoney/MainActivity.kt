@@ -136,7 +136,7 @@ class MainActivity : ComponentActivity() {
                                         .fillMaxSize()
                                         .padding(innerPadding),
                                 ) {
-                                    Greeting("Categories")
+                                    Categories(navController)
                                 }
                             }
                         }

@@ -1,11 +1,13 @@
 package com.devsphere.yourmoney.pages
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.KeyboardArrowLeft
+import androidx.compose.material.icons.rounded.Send
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -20,20 +22,17 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.devsphere.yourmoney.components.TableRow
-import com.devsphere.yourmoney.ui.theme.BackgroundElevated
-import com.devsphere.yourmoney.ui.theme.DividerColor
-import com.devsphere.yourmoney.ui.theme.Shapes
-import com.devsphere.yourmoney.ui.theme.TopAppBarBackground
+import com.devsphere.yourmoney.components.UnstyledTextField
+import com.devsphere.yourmoney.ui.theme.*
 import com.devsphere.yourmoney.viewmodels.CategoriesViewModel
 import com.github.skydoves.colorpicker.compose.*
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Categories(navController: NavController, vm : CategoriesViewModel = viewModel()) {
+fun Categories(navController: NavController, vm: CategoriesViewModel = viewModel()) {
     val uiState by vm.uiState.collectAsState()
 
     val colorPickerController = rememberColorPickerController()
-    colorPickerController.selectedColor.value
 
     Scaffold(topBar = {
         MediumTopAppBar(title = { Text("Categories") },
@@ -53,10 +52,10 @@ fun Categories(navController: NavController, vm : CategoriesViewModel = viewMode
                     }
                 }
             })
-    },content = { innerPadding ->
+    }, content = { innerPadding ->
         Column(modifier = Modifier.padding(innerPadding)) {
             Column(
-                modifier =  Modifier
+                modifier = Modifier
                     .padding(16.dp)
                     .clip(Shapes.medium)
                     .background(BackgroundElevated)
@@ -90,94 +89,94 @@ fun Categories(navController: NavController, vm : CategoriesViewModel = viewMode
                     color = DividerColor
                 )
             }
-            Row(modifier = Modifier.padding(horizontal = 16.dp)) {
-                if(uiState.colorPickerShowing) {
-                    Dialog(onDismissRequest =  vm::hideColorPicker )    {
-                        // on below line we are creating a column,
-                        Column(
-                            // on below line we are adding a modifier to it,
-                            modifier = Modifier
-                                .fillMaxSize()
-                                // on below line we are adding a padding.
-                                .padding(all = 30.dp)
-                        ) {
-                            // on below line we are adding a row.
-                            Row(
-                                // on below line we are adding a modifier
-                                modifier = Modifier.fillMaxWidth(),
-                                // on below line we are adding horizontal
-                                // and vertical alignment.
-                                horizontalArrangement = Arrangement.Center,
-                                verticalAlignment = Alignment.CenterVertically
+            Row(modifier = Modifier.padding(horizontal = 16.dp), verticalAlignment = Alignment.CenterVertically) {
+                if (uiState.colorPickerShowing) {
+                    Dialog(onDismissRequest = vm::hideColorPicker) {
+                        Surface(color = BackgroundElevated, shape = Shapes.large) {
+                            Column(
+                                modifier = Modifier
+                                    .padding(all = 30.dp)
                             ) {
-                                // on below line we are adding a alpha tile.
-                                AlphaTile(
-                                    // on below line we are
-                                    // adding modifier to it
+                                Text("Select a color", style = Typography.titleLarge)
+                                Row(
                                     modifier = Modifier
                                         .fillMaxWidth()
-                                        // on below line
-                                        // we are adding a height.
-                                        .height(60.dp)
-                                        // on below line we are adding clip.
-                                        .clip(RoundedCornerShape(6.dp)),
-                                    // on below line we are adding controller.
-                                    controller = colorPickerController
+                                        .padding(top = 24.dp),
+                                    horizontalArrangement = Arrangement.Center,
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+                                    AlphaTile(
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .height(60.dp)
+                                            .clip(RoundedCornerShape(6.dp)),
+                                        controller = colorPickerController
+                                    )
+                                }
+                                HsvColorPicker(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .height(300.dp)
+                                        .padding(10.dp),
+                                    controller = colorPickerController,
+                                    onColorChanged = { envelope ->
+                                        vm.setNewCategoryColor(envelope.color)
+                                    },
                                 )
+                                Button(
+                                    onClick = vm::hideColorPicker,
+                                    modifier = Modifier
+                                        .padding(16.dp)
+                                        .align(alignment = Alignment.CenterHorizontally),
+                                    shape = Shapes.large,
+                                ) {
+                                    Text("          Done            ")
+                                }
                             }
-                            // on below line we are
-                            // adding horizontal color picker.
-                            HsvColorPicker(
-                                // on below line we are
-                                // adding a modifier to it
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .height(450.dp)
-                                    .padding(10.dp),
-                                // on below line we are
-                                // adding a controller
-                                controller = colorPickerController,
-                                // on below line we are
-                                // adding on color changed.
-                                onColorChanged = {}
-                            )
-                            // on below line we are adding a alpha slider.
-                            AlphaSlider(
-                                // on below line we
-                                // are adding a modifier to it.
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(10.dp)
-                                    .height(35.dp),
-                                // on below line we are
-                                // adding a controller.
-                                controller = colorPickerController,
-                                // on below line we are
-                                // adding odd and even color.
-                                tileOddColor = Color.White,
-                                tileEvenColor = Color.Black
-                            )
-                            // on below line we are
-                            // adding a brightness slider.
-                            BrightnessSlider(
-                                // on below line we
-                                // are adding a modifier to it.
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(10.dp)
-                                    .height(35.dp),
-                                // on below line we are
-                                // adding a controller.
-                                controller = colorPickerController,
-                            )
                         }
                     }
+                }
                 Surface(
                     onClick = vm::showColorPicker,
                     shape = CircleShape,
                     color = uiState.newCategoryColor,
+                    border = BorderStroke(
+                        width = 2.dp,
+                        color = Color.White
+                    ),
                     modifier = Modifier.size(width = 24.dp, height = 24.dp)
                 ) {}
+                Surface(
+                    color = BackgroundElevated,
+                    modifier = Modifier
+                        .height(44.dp)
+                        .weight(1f)
+                        .padding(start = 16.dp),
+                    shape = Shapes.large,
+                ) {
+                    Column(
+                        verticalArrangement = Arrangement.Center,
+                        modifier = Modifier.fillMaxHeight()
+                    ) {
+                        UnstyledTextField(
+                            value = uiState.newCategoryName,
+                            onValueChange = vm::setNewCategoryName,
+                            placeholder = { Text("Category name") },
+                            modifier = Modifier
+                                .fillMaxWidth(),
+                            maxLines = 1,
+                        )
+                    }
+                }
+                IconButton(
+                    onClick = vm::createNewCategory,
+                    modifier = Modifier
+                        .padding(start = 16.dp)
+                ) {
+                    Icon(
+                        Icons.Rounded.Send,
+                        "Create category"
+                    )
                 }
             }
         }

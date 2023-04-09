@@ -2,6 +2,7 @@
 # YourMoney Budget Tracker Android App
 //Build using Jetpack Compose and Material Design 3
 
+App description will be added at the end day of the project completion.
 
 
 
@@ -23,6 +24,6 @@ And this problem taught me how to revert back to the previous version of my repo
   > git push -f github master
 
   // If you are using and IDE then write this:
-  > git push -f origin master or main (whichever is your branch is. You can check that in the end of your settings section of repository)
+  > git push -f origin master or main (whichever is your branch is. You can check that in the end of your settings section of your repository)
 ```
 

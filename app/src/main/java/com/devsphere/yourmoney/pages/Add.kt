@@ -28,14 +28,13 @@ import com.devsphere.yourmoney.models.Recurrence
 import com.devsphere.yourmoney.ui.theme.*
 import com.marosseleng.compose.material3.datetimepickers.date.ui.dialog.DatePickerDialog
 import com.devsphere.yourmoney.viewmodels.AddViewModel
-import java.time.LocalDate
 import java.util.*
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
 @Composable
 
-fun Add(navController: NavController, addViewModel: AddViewModel = viewModel()) {
-    val state by addViewModel.uiState.collectAsState()
+fun Add(navController: NavController, vm: AddViewModel = viewModel()) {
+    val state by vm.uiState.collectAsState()
 
     val recurrences = listOf(
         Recurrence.None,
@@ -97,7 +96,7 @@ fun Add(navController: NavController, addViewModel: AddViewModel = viewModel()) 
                 TableRow(label = "Amount", detailContent = {
                     UnstyledTextField(
                         value = state.amount,
-                        onValueChange = addViewModel::setAmount,
+                        onValueChange = vm::setAmount,
                         modifier = Modifier.fillMaxWidth(),
                         placeholder = { Text("0") },
                         arrangement = Arrangement.End,
@@ -115,7 +114,7 @@ fun Add(navController: NavController, addViewModel: AddViewModel = viewModel()) 
                     thickness = 1.dp,
                     color = DividerColor
                 )
-                TableRow(label = "Recurrence") {
+                TableRow(label = "Recurrence", detailContent = {
                     var recurrenceMenuOpened by remember {
                         mutableStateOf(false)
                     }
@@ -127,24 +126,27 @@ fun Add(navController: NavController, addViewModel: AddViewModel = viewModel()) 
                             onDismissRequest = { recurrenceMenuOpened = false }) {
                             recurrences.forEach { recurrence ->
                                 DropdownMenuItem(text = { Text(recurrence.name) }, onClick = {
-                                    addViewModel.setRecurrence(recurrence)
+                                    vm.setRecurrence(recurrence)
                                     recurrenceMenuOpened = false
                                 })
                             }
                         }
                     }
-                }
+                })
 
                 Divider(
-                    modifier = Modifier.padding(start = 16.dp, end = 16.dp),
+                    modifier = Modifier
+                        .padding(
+                            start = 16.dp,
+                            end = 16.dp
+                        ),
                     thickness = 1.dp,
                     color = DividerColor
                 )
-
                 var datePickerShowing by remember {
                     mutableStateOf(false)
                 }
-                TableRow(label = "Date") {
+                TableRow(label = "Date", detailContent = {
                     TextButton(onClick = { datePickerShowing = true }) {
                         Text(state.date.toString())
                     }
@@ -152,24 +154,24 @@ fun Add(navController: NavController, addViewModel: AddViewModel = viewModel()) 
                         DatePickerDialog(
                             onDismissRequest = { datePickerShowing = false },
                             onDateChange = { it ->
-                                addViewModel.setDate(it)
+                                vm.setDate(it)
                                 datePickerShowing = false
                             },
                             initialDate = state.date,
                             title = { Text("Select a Date", style = Typography.titleLarge) },
                         )
                     }
-                }
+                })
 
                 Divider(
                     modifier = Modifier.padding(start = 16.dp, end = 16.dp),
                     thickness = 1.dp,
                     color = DividerColor
                 )
-                TableRow(label = "Note") {
+                TableRow(label = "Note", detailContent = {
                     UnstyledTextField(
                         value = state.note,
-                        onValueChange = addViewModel::setNote,
+                        onValueChange = vm::setNote,
                         placeholder = { Text("Leave some notes") },
                         modifier = Modifier.fillMaxWidth(),
                         arrangement = Arrangement.End,
@@ -177,14 +179,14 @@ fun Add(navController: NavController, addViewModel: AddViewModel = viewModel()) 
                             textAlign = TextAlign.Right,
                         ),
                     )
-                }
+                })
 
                 Divider(
                     modifier = Modifier.padding(start = 16.dp, end = 16.dp),
                     thickness = 1.dp,
                     color = DividerColor
                 )
-                TableRow(label = "Category") {
+                TableRow(label = "Category", detailContent = {
                     var categoriesMenuOpened by remember {
                         mutableStateOf(false)
                     }
@@ -208,16 +210,16 @@ fun Add(navController: NavController, addViewModel: AddViewModel = viewModel()) 
                                         )
                                     }
                                 }, onClick = {
-                                    addViewModel.setCategory(category)
+                                    vm.setCategory(category)
                                     categoriesMenuOpened = false
                                 })
                             }
                         }
                     }
-                }
+                })
             }
             Button(
-                onClick = addViewModel::submitExpense,
+                onClick = vm::submitExpense,
                 modifier = Modifier.padding(16.dp),
                 shape = Shapes.large,
             ) {

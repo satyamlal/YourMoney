@@ -1,11 +1,12 @@
 package com.devsphere.yourmoney.pages
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.relocation.BringIntoViewRequester
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -15,13 +16,13 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.devsphere.yourmoney.components.TableRow
@@ -30,12 +31,13 @@ import com.devsphere.yourmoney.ui.theme.*
 import com.devsphere.yourmoney.viewmodels.CategoriesViewModel
 import com.github.skydoves.colorpicker.compose.*
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
 fun Categories(navController: NavController, vm: CategoriesViewModel = viewModel()) {
     val uiState by vm.uiState.collectAsState()
 
     val colorPickerController = rememberColorPickerController()
+    val bottomBarBringIntoViewRequester = remember {BringIntoViewRequester()}
 
     Scaffold(topBar = {
         MediumTopAppBar(title = { Text("Categories") },
@@ -71,7 +73,23 @@ fun Categories(navController: NavController, vm: CategoriesViewModel = viewModel
                         .fillMaxWidth()
                 ) {
                     itemsIndexed(uiState.categories) { index, category ->
-                        TableRow(label = category.name)
+                        TableRow() {
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically,
+//                                modifier = Modifier.padding(horizontal = 16.dp)
+                            ) {
+                                Surface(
+                                    color = category.color,
+                                    shape = CircleShape,
+//                                    border = BorderStroke(
+//                                        width = 2.dp,
+//                                        color = Color.White,
+//                                    ),
+                                    modifier = Modifier.size(12.dp),
+                                ){}
+                                Text(category.name, modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp))
+                            }
+                        }
                         if (index < uiState.categories.size - 1) {
                             Divider(
                                 modifier = Modifier.padding(start = 16.dp, end = 16.dp),

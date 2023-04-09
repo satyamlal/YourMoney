@@ -24,7 +24,8 @@ fun Settings(navController: NavController) {
     Scaffold(
         topBar = {
             MediumTopAppBar(
-                title = { Text("Settings") }, colors = TopAppBarDefaults.mediumTopAppBarColors(
+                title = { Text("Settings") },
+                colors = TopAppBarDefaults.mediumTopAppBarColors(
                     containerColor = TopAppBarBackground
                 )
             )
@@ -34,18 +35,14 @@ fun Settings(navController: NavController) {
                 Column(
                     modifier = Modifier
                         .padding(16.dp)
-                        .clip(Shapes.medium)
+                        .clip(Shapes.large)
                         .background(BackgroundElevated)
                         .fillMaxWidth()
                 ) {
-                    TableRow(label = "Categories", hasArrow = true, modifier = Modifier.clickable {
+                    TableRow(label = "Categories", hasArrow = true, modifier = Modifier.clickable{
                         navController.navigate("settings/categories")
                     })
-                    Divider(
-                        modifier = Modifier.padding(start = 16.dp, end = 16.dp),
-                        thickness = 1.dp,
-                        color = DividerColor
-                    )
+                    Divider(modifier = Modifier.padding(start = 16.dp, end = 16.dp), thickness = 1.dp, color = DividerColor)
                     TableRow(label = "Erase all data", isDestructive = true)
                 }
             }

@@ -17,11 +17,11 @@ import com.devsphere.yourmoney.ui.theme.Typography
 @Composable
 fun TableRow(
     modifier: Modifier = Modifier,
-    label: String,
+    label: String? = null,
     hasArrow: Boolean = false,
     isDestructive: Boolean = false,
-    detailContent: (@Composable RowScope.() -> Unit)? = null,
-    content: (@Composable RowScope.() -> Unit)? = null,
+    detailContent: @Composable() (RowScope.() -> Unit)? = null,
+    content: @Composable() (RowScope.() -> Unit)? = null,
 ) {
 
     val textColor = if (isDestructive) Destructive else TextPrimary
@@ -29,7 +29,7 @@ fun TableRow(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 10.dp),
+            .padding(horizontal = 16.dp, vertical = 6.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = CenterVertically,
     ) {
@@ -38,7 +38,7 @@ fun TableRow(
                 text = label,
                 style = Typography.bodyMedium,
                 color = textColor,
-                modifier = Modifier.padding(horizontal = 16.dp, vertical = 10.dp)
+                modifier = Modifier.padding(horizontal = 16.dp, vertical = 6.dp)
             )
         }
         if (content != null) {
@@ -48,7 +48,7 @@ fun TableRow(
             Icon(
                 painterResource(id = R.drawable.chevron_right),
                 contentDescription = "Right_Arrow",
-                modifier = Modifier.padding(horizontal = 16.dp, vertical = 10.dp)
+                modifier = Modifier.padding(horizontal = 16.dp, vertical = 6.dp)
             )
         }
         if (detailContent != null) {

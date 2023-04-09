@@ -2,6 +2,7 @@
 # YourMoney Budget Tracker Android App
 //Build using Jetpack Compose and Material Design 3
 
+App description will be added at the end day of the project completion.
 
 
 

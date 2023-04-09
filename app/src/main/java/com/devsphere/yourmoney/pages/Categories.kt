@@ -3,6 +3,9 @@ package com.devsphere.yourmoney.pages
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -53,43 +56,39 @@ fun Categories(navController: NavController, vm: CategoriesViewModel = viewModel
                 }
             })
     }, content = { innerPadding ->
-        Column(modifier = Modifier.padding(innerPadding)) {
-            Column(
-                modifier = Modifier
-                    .padding(16.dp)
-                    .clip(Shapes.medium)
-                    .background(BackgroundElevated)
-                    .fillMaxWidth()
-            ) {
-                TableRow("Groceries")
-                Divider(
-                    modifier = Modifier.padding(start = 16.dp, end = 16.dp),
-                    thickness = 1.dp,
-                    color = DividerColor
-                )
-
-                TableRow("Bills")
-                Divider(
-                    modifier = Modifier.padding(start = 16.dp, end = 16.dp),
-                    thickness = 1.dp,
-                    color = DividerColor
-                )
-
-                TableRow("Fruits")
-                Divider(
-                    modifier = Modifier.padding(start = 16.dp, end = 16.dp),
-                    thickness = 1.dp,
-                    color = DividerColor
-                )
-
-                TableRow("Vegetables")
-                Divider(
-                    modifier = Modifier.padding(start = 16.dp, end = 16.dp),
-                    thickness = 1.dp,
-                    color = DividerColor
-                )
+        Column(
+            modifier = Modifier
+                .padding(innerPadding)
+                .fillMaxHeight(),
+            verticalArrangement = Arrangement.SpaceBetween
+        ) {
+            Column(modifier = Modifier.weight(1f)) {
+                LazyColumn(
+                    modifier = Modifier
+                        .padding(16.dp)
+                        .clip(Shapes.medium)
+                        .background(BackgroundElevated)
+                        .fillMaxWidth()
+                ) {
+                    itemsIndexed(uiState.categories) { index, category ->
+                        TableRow(label = category.name)
+                        if (index < uiState.categories.size - 1) {
+                            Divider(
+                                modifier = Modifier.padding(start = 16.dp, end = 16.dp),
+                                thickness = 1.dp,
+                                color = DividerColor
+                            )
+                        }
+                    }
+                }
             }
-            Row(modifier = Modifier.padding(horizontal = 16.dp), verticalAlignment = Alignment.CenterVertically) {
+            Row(
+                modifier = Modifier
+                    .padding(horizontal = 16.dp)
+                    .padding(bottom = 16.dp)
+                    .defaultMinSize(minHeight = 44.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
                 if (uiState.colorPickerShowing) {
                     Dialog(onDismissRequest = vm::hideColorPicker) {
                         Surface(color = BackgroundElevated, shape = Shapes.large) {

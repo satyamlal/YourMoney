@@ -16,30 +16,43 @@ import com.devsphere.yourmoney.ui.theme.Typography
 
 @Composable
 fun TableRow(
-    label: String,
     modifier: Modifier = Modifier,
+    label: String,
     hasArrow: Boolean = false,
     isDestructive: Boolean = false,
+    detailContent: (@Composable RowScope.() -> Unit)? = null,
     content: (@Composable RowScope.() -> Unit)? = null,
 ) {
 
     val textColor = if (isDestructive) Destructive else TextPrimary
 
     Row(
-        modifier = modifier.fillMaxWidth().padding(horizontal = 16.dp),
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp, vertical = 10.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = CenterVertically,
     ) {
-        Text(text = label, style = Typography.bodyMedium, color = textColor, modifier = Modifier.padding(vertical = 10.dp))
+        if (label != null) {
+            Text(
+                text = label,
+                style = Typography.bodyMedium,
+                color = textColor,
+                modifier = Modifier.padding(horizontal = 16.dp, vertical = 10.dp)
+            )
+        }
+        if (content != null) {
+            content()
+        }
         if (hasArrow) {
             Icon(
                 painterResource(id = R.drawable.chevron_right),
                 contentDescription = "Right_Arrow",
-                modifier = Modifier.padding(vertical = 10.dp)
+                modifier = Modifier.padding(horizontal = 16.dp, vertical = 10.dp)
             )
         }
-        if(content != null){
-            content()
+        if (detailContent != null) {
+            detailContent()
         }
     }
 }

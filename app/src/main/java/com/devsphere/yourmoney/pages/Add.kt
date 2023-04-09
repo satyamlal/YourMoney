@@ -70,178 +70,161 @@ fun Add(navController: NavController, addViewModel: AddViewModel = viewModel()) 
     }
 
     val mDatePicker = DatePickerDialog(
-        mContext,
-        { _: DatePicker, selectedYear: Int, selectedMonth: Int, selectedDay: Int ->
+        mContext, { _: DatePicker, selectedYear: Int, selectedMonth: Int, selectedDay: Int ->
             mDate = "${selectedDay}-${selectedMonth + 1}-${selectedYear}"
-        },
-        mYear,
-        mMonth,
-        mDay
+        }, mYear, mMonth, mDay
     )
     mDatePicker.datePicker.maxDate = mCalendar.timeInMillis
 
-    Scaffold(
-        topBar = {
-            MediumTopAppBar(
-                title = { Text("Add") }, colors = TopAppBarDefaults.mediumTopAppBarColors(
-                    containerColor = TopAppBarBackground
-                )
+    Scaffold(topBar = {
+        MediumTopAppBar(
+            title = { Text("Add") }, colors = TopAppBarDefaults.mediumTopAppBarColors(
+                containerColor = TopAppBarBackground
             )
-        },
-        content = { innerPadding ->
+        )
+    }, content = { innerPadding ->
+        Column(
+            modifier = Modifier.padding(innerPadding),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
             Column(
-                modifier = Modifier.padding(innerPadding),
-                horizontalAlignment = Alignment.CenterHorizontally
+                modifier = Modifier
+                    .padding(16.dp)
+                    .clip(Shapes.large)
+                    .background(BackgroundElevated)
+                    .fillMaxWidth()
             ) {
-                Column(
-                    modifier = Modifier
-                        .padding(16.dp)
-                        .clip(Shapes.large)
-                        .background(BackgroundElevated)
-                        .fillMaxWidth()
-                ) {
-                    TableRow(label = "Amount") {
-                        UnstyledTextField(
-                            value = state.amount,
-                            onValueChange = addViewModel::setAmount,
-                            modifier = Modifier.fillMaxWidth(),
-                            placeholder = { Text("0") },
-                            arrangement = Arrangement.End,
-                            maxLines = 1,
-                            textStyle = TextStyle(
-                                textAlign = TextAlign.End,
-                            ),
-                            keyboardOptions = KeyboardOptions(
-                                keyboardType = KeyboardType.Number,
-                            )
+                TableRow(label = "Amount", detailContent = {
+                    UnstyledTextField(
+                        value = state.amount,
+                        onValueChange = addViewModel::setAmount,
+                        modifier = Modifier.fillMaxWidth(),
+                        placeholder = { Text("0") },
+                        arrangement = Arrangement.End,
+                        maxLines = 1,
+                        textStyle = TextStyle(
+                            textAlign = TextAlign.End,
+                        ),
+                        keyboardOptions = KeyboardOptions(
+                            keyboardType = KeyboardType.Number,
                         )
-                    }
-                    Divider(
-                        modifier = Modifier.padding(start = 16.dp, end = 16.dp),
-                        thickness = 1.dp,
-                        color = DividerColor
                     )
-                    TableRow("Recurrence") {
-                        var recurrenceMenuOpened by remember {
-                            mutableStateOf(false)
-                        }
-                        TextButton(
-                            onClick = { recurrenceMenuOpened = true },
-                            shape = Shapes.large
-                        ) {
-                            Text(state.recurrence?.name ?: Recurrence.None.name)
-                            DropdownMenu(
-                                expanded = recurrenceMenuOpened,
-                                onDismissRequest = { recurrenceMenuOpened = false }) {
-                                recurrences.forEach { recurrence ->
-                                    DropdownMenuItem(
-                                        text = { Text(recurrence.name) },
-                                        onClick = {
-                                            addViewModel.setRecurrence(recurrence)
-                                            recurrenceMenuOpened = false
-                                        }
-                                    )
-                                }
-                            }
-                        }
-                    }
-
-                    Divider(
-                        modifier = Modifier.padding(start = 16.dp, end = 16.dp),
-                        thickness = 1.dp,
-                        color = DividerColor
-                    )
-
-                    var datePickerShowing by remember {
+                })
+                Divider(
+                    modifier = Modifier.padding(start = 16.dp, end = 16.dp),
+                    thickness = 1.dp,
+                    color = DividerColor
+                )
+                TableRow(label = "Recurrence") {
+                    var recurrenceMenuOpened by remember {
                         mutableStateOf(false)
                     }
-                    TableRow("Date") {
-                        TextButton(onClick = { datePickerShowing = true }) {
-                            Text(state.date.toString())
-                        }
-                        if (datePickerShowing) {
-                            DatePickerDialog(
-                                onDismissRequest = { datePickerShowing = false },
-                                onDateChange = { it ->
-                                    addViewModel.setDate(it)
-                                    datePickerShowing = false
-                                },
-                                initialDate = state.date,
-                                title = { Text("Select a Date", style = Typography.titleLarge)},
-                            )
-                        }
-                    }
-
-                    Divider(
-                        modifier = Modifier.padding(start = 16.dp, end = 16.dp),
-                        thickness = 1.dp,
-                        color = DividerColor
-                    )
-                    TableRow("Note") {
-                        UnstyledTextField(
-                            value = state.note,
-                            onValueChange = addViewModel::setNote,
-                            placeholder = { Text("Leave some notes") },
-                            modifier = Modifier.fillMaxWidth(),
-                            arrangement = Arrangement.End,
-                            textStyle = TextStyle(
-                                textAlign = TextAlign.Right,
-                            ),
-                        )
-                    }
-
-                    Divider(
-                        modifier = Modifier.padding(start = 16.dp, end = 16.dp),
-                        thickness = 1.dp,
-                        color = DividerColor
-                    )
-                    TableRow("Category") {
-                        var categoriesMenuOpened by remember {
-                            mutableStateOf(false)
-                        }
-                        TextButton(
-                            onClick = { categoriesMenuOpened = true },
-                            shape = Shapes.large
-                        ) {// TODO:  change the color of the text based on the selected category
-                            Text(state.category ?: "Select a category first")
-                            DropdownMenu(
-                                expanded = categoriesMenuOpened,
-                                onDismissRequest = { categoriesMenuOpened = false }) {
-                                categories.forEach { category ->
-                                    DropdownMenuItem(
-                                        text = {
-                                            Row(verticalAlignment = Alignment.CenterVertically) {
-                                                Surface(
-                                                    modifier = Modifier.size(10.dp),
-                                                    shape = CircleShape,
-                                                    color = Primary, // TODO: change the color based on the category
-                                                ) {}
-                                                Text(
-                                                    category,
-                                                    modifier = Modifier.padding(start = 8.dp)
-                                                )
-                                            }
-                                        },
-                                        onClick = {
-                                            addViewModel.setCategory(category)
-                                            categoriesMenuOpened = false
-                                        }
-                                    )
-                                }
+                    TextButton(
+                        onClick = { recurrenceMenuOpened = true }, shape = Shapes.large
+                    ) {
+                        Text(state.recurrence?.name ?: Recurrence.None.name)
+                        DropdownMenu(expanded = recurrenceMenuOpened,
+                            onDismissRequest = { recurrenceMenuOpened = false }) {
+                            recurrences.forEach { recurrence ->
+                                DropdownMenuItem(text = { Text(recurrence.name) }, onClick = {
+                                    addViewModel.setRecurrence(recurrence)
+                                    recurrenceMenuOpened = false
+                                })
                             }
                         }
                     }
                 }
-                Button(
-                    onClick = addViewModel::submitExpense,
-                    modifier = Modifier.padding(16.dp),
-                    shape = Shapes.large,
-                ) {
-                    Text("Submit Expenses")
+
+                Divider(
+                    modifier = Modifier.padding(start = 16.dp, end = 16.dp),
+                    thickness = 1.dp,
+                    color = DividerColor
+                )
+
+                var datePickerShowing by remember {
+                    mutableStateOf(false)
+                }
+                TableRow(label = "Date") {
+                    TextButton(onClick = { datePickerShowing = true }) {
+                        Text(state.date.toString())
+                    }
+                    if (datePickerShowing) {
+                        DatePickerDialog(
+                            onDismissRequest = { datePickerShowing = false },
+                            onDateChange = { it ->
+                                addViewModel.setDate(it)
+                                datePickerShowing = false
+                            },
+                            initialDate = state.date,
+                            title = { Text("Select a Date", style = Typography.titleLarge) },
+                        )
+                    }
+                }
+
+                Divider(
+                    modifier = Modifier.padding(start = 16.dp, end = 16.dp),
+                    thickness = 1.dp,
+                    color = DividerColor
+                )
+                TableRow(label = "Note") {
+                    UnstyledTextField(
+                        value = state.note,
+                        onValueChange = addViewModel::setNote,
+                        placeholder = { Text("Leave some notes") },
+                        modifier = Modifier.fillMaxWidth(),
+                        arrangement = Arrangement.End,
+                        textStyle = TextStyle(
+                            textAlign = TextAlign.Right,
+                        ),
+                    )
+                }
+
+                Divider(
+                    modifier = Modifier.padding(start = 16.dp, end = 16.dp),
+                    thickness = 1.dp,
+                    color = DividerColor
+                )
+                TableRow(label = "Category") {
+                    var categoriesMenuOpened by remember {
+                        mutableStateOf(false)
+                    }
+                    TextButton(
+                        onClick = { categoriesMenuOpened = true }, shape = Shapes.large
+                    ) {// TODO:  change the color of the text based on the selected category
+                        Text(state.category ?: "Select a category first")
+                        DropdownMenu(expanded = categoriesMenuOpened,
+                            onDismissRequest = { categoriesMenuOpened = false }) {
+                            categories.forEach { category ->
+                                DropdownMenuItem(text = {
+                                    Row(verticalAlignment = Alignment.CenterVertically) {
+                                        Surface(
+                                            modifier = Modifier.size(10.dp),
+                                            shape = CircleShape,
+                                            color = Primary, // TODO: change the color based on the category
+                                        ) {}
+                                        Text(
+                                            category,
+                                            modifier = Modifier.padding(start = 8.dp)
+                                        )
+                                    }
+                                }, onClick = {
+                                    addViewModel.setCategory(category)
+                                    categoriesMenuOpened = false
+                                })
+                            }
+                        }
+                    }
                 }
             }
+            Button(
+                onClick = addViewModel::submitExpense,
+                modifier = Modifier.padding(16.dp),
+                shape = Shapes.large,
+            ) {
+                Text("Submit Expenses")
+            }
         }
-    )
+    })
 }
 
 @Preview(showBackground = true, uiMode = UI_MODE_NIGHT_YES)

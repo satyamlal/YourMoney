@@ -52,9 +52,7 @@ fun UnstyledTextField(
     val textColor = TextPrimary
     val mergedTextStyle = textStyle.merge(TextStyle(color = textColor))
 
-    BasicTextField(
-        value = value,
-        modifier = Modifier,
+    BasicTextField(value = value,
         onValueChange = onValueChange,
         enabled = enabled,
         readOnly = readOnly,
@@ -75,6 +73,7 @@ fun UnstyledTextField(
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = arrangement,
+                        verticalAlignment = CenterVertically
                     ) {
                         placeholder?.invoke()
                     }
@@ -89,14 +88,26 @@ fun UnstyledTextField(
                 isError = isError,
                 interactionSource = interactionSource,
                 contentPadding = PaddingValues(horizontal = 16.dp),
-                colors = TextFieldDefaults.textFieldColors(
-                    containerColor = Color.Transparent,
-                    textColor = TextPrimary,
+                colors = TextFieldDefaults.colors(
+                    focusedTextColor = TextPrimary,
+                    unfocusedTextColor = Color.Red,
+                    focusedContainerColor = Color.Transparent,
+                    unfocusedContainerColor = Color.Transparent,
+                    disabledContainerColor = Color.Transparent,
                     cursorColor = Primary,
                     focusedIndicatorColor = Color.Transparent,
                     unfocusedIndicatorColor = Color.Transparent,
                     disabledIndicatorColor = Color.Transparent,
                 ),
+//                colors = TextFieldDefaults.textFieldColors(
+//                    containerColor = Color.Transparent,
+//                    focusedTextColor = TextPrimary,
+//                    unfocusedTextColor = Color.Red,
+//                    cursorColor = Primary,
+//                    focusedIndicatorColor = Color.Transparent,
+//                    unfocusedIndicatorColor = Color.Transparent,
+//                    disabledIndicatorColor = Color.Transparent,
+//                ),
             )
         }
     )

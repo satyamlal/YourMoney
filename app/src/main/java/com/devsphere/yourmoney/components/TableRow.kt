@@ -5,9 +5,10 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.*
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterVertically
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.devsphere.yourmoney.R
 import com.devsphere.yourmoney.ui.theme.Destructive
@@ -20,20 +21,14 @@ fun TableRow(
     label: String? = null,
     hasArrow: Boolean = false,
     isDestructive: Boolean = false,
-    detailContent: @Composable() (RowScope.() -> Unit)? = null,
-    content: @Composable() (RowScope.() -> Unit)? = null,
+    detailContent: @Composable (RowScope.() -> Unit)? = null,
+    content: @Composable (RowScope.() -> Unit)? = null,
 ) {
 
     val textColor = if (isDestructive) Destructive else TextPrimary
 
-    val swipeableState = rememberSwipeableState(0)
-    val sizePx = with(LocalDensity.current) { squareSize.toPx() }
-    val anchors = mapOf(0f to 0, sizePx to 1)
-
     Row(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 6.dp),
+        modifier = modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = CenterVertically,
     ) {
@@ -59,8 +54,4 @@ fun TableRow(
             detailContent()
         }
     }
-}
-
-fun rememberSwipeableState(i: Int): Any {
-
 }

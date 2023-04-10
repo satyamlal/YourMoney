@@ -1,13 +1,13 @@
 package com.devsphere.yourmoney.pages
 
+import android.content.res.Configuration.UI_MODE_NIGHT_YES
+import androidx.compose.animation.*
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.foundation.relocation.BringIntoViewRequester
-import androidx.compose.foundation.relocation.bringIntoViewRequester
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -19,20 +19,31 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
+import com.github.skydoves.colorpicker.compose.*
+import com.devsphere.yourmoney.R
 import com.devsphere.yourmoney.components.TableRow
 import com.devsphere.yourmoney.components.UnstyledTextField
 import com.devsphere.yourmoney.ui.theme.*
 import com.devsphere.yourmoney.viewmodels.CategoriesViewModel
-import com.github.skydoves.colorpicker.compose.*
+import me.saket.swipe.SwipeAction
+import me.saket.swipe.SwipeableActionsBox
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
+@OptIn(
+    ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class,
+    ExperimentalAnimationApi::class
+)
 @Composable
 fun Categories(navController: NavController, vm: CategoriesViewModel = viewModel()) {
     val uiState by vm.uiState.collectAsState()
+
+    val swipeableState = rememberDismissState()
 
     val colorPickerController = rememberColorPickerController()
 
@@ -71,23 +82,38 @@ fun Categories(navController: NavController, vm: CategoriesViewModel = viewModel
                         .fillMaxWidth()
                 ) {
                     itemsIndexed(uiState.categories) { index, category ->
-                        TableRow() {
-                            Row(
-                                verticalAlignment = Alignment.CenterVertically,
+                        SwipeToDismiss(
+                            state = swipeableState,
+                            dismissContent = {
+                                TableRow() {
+                                    Row(
+                                        verticalAlignment = Alignment.CenterVertically,
 //                                modifier = Modifier.padding(horizontal = 16.dp)
-                            ) {
-                                Surface(
-                                    color = category.color,
-                                    shape = CircleShape,
+                                    ) {
+                                        Surface(
+                                            color = category.color,
+                                            shape = CircleShape,
 //                                    border = BorderStroke(
 //                                        width = 2.dp,
 //                                        color = Color.White,
 //                                    ),
-                                    modifier = Modifier.size(12.dp),
-                                ){}
-                                Text(category.name, modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp))
-                            }
-                        }
+                                            modifier = Modifier.size(12.dp),
+                                        ) {}
+                                        Text(
+                                            category.name,
+                                            modifier = Modifier.padding(
+                                                horizontal = 10.dp,
+                                                vertical = 6.dp
+                                            )
+                                        )
+                                    }
+                                }
+                            },
+                            background = {
+                                         Text("Testing UI")
+                            },
+                            directions = setOf(DismissDirection.EndToStart)
+                        )
                         if (index < uiState.categories.size - 1) {
                             Divider(
                                 modifier = Modifier.padding(start = 16.dp, end = 16.dp),
@@ -102,8 +128,10 @@ fun Categories(navController: NavController, vm: CategoriesViewModel = viewModel
                 modifier = Modifier
                     .padding(horizontal = 16.dp)
                     .padding(bottom = 16.dp)
-                    .defaultMinSize(minHeight = 44.dp),
-                verticalAlignment = Alignment.CenterVertically
+                    .fillMaxWidth(),
+//                    .defaultMinSize(minHeight = 44.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween,
             ) {
                 if (uiState.colorPickerShowing) {
                     Dialog(onDismissRequest = vm::hideColorPicker) {

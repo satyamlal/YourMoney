@@ -26,6 +26,10 @@ fun TableRow(
 
     val textColor = if (isDestructive) Destructive else TextPrimary
 
+    val swipeableState = rememberSwipeableState(0)
+    val sizePx = with(LocalDensity.current) { squareSize.toPx() }
+    val anchors = mapOf(0f to 0, sizePx to 1)
+
     Row(
         modifier = modifier
             .fillMaxWidth()
@@ -55,4 +59,8 @@ fun TableRow(
             detailContent()
         }
     }
+}
+
+fun rememberSwipeableState(i: Int): Any {
+
 }

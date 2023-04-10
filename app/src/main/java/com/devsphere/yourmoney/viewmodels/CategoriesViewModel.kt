@@ -15,7 +15,7 @@ data class CategoriesState(
     val newCategoryColor: Color = Color.White,
     val newCategoryName: String = "",
     val colorPickerShowing: Boolean = false,
-    val categories: List<Category> = listOf(
+    val categories: MutableList<Category> = mutableListOf(
         Category("Bills", Color.Red),
         Category("Fruits", Color.Yellow),
         Category("Vegetables", Color.White),
@@ -64,5 +64,22 @@ class CategoriesViewModel : ViewModel() {
 
     fun createNewCategory() {
         //TODO: save new category to local db
+
+        val newCategoriesList = mutableListOf(
+            Category(
+                _uiState.value.newCategoryName,
+                _uiState.value.newCategoryColor
+            )
+        )
+            newCategoriesList.addAll(
+            _uiState.value.categories
+        )
+        _uiState.update { currentState ->
+            currentState.copy(
+                categories = newCategoriesList,
+                newCategoryName = "",
+                newCategoryColor = Color.White,
+            )
+        }
     }
 }

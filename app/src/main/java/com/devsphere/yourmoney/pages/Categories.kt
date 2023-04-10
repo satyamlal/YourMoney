@@ -7,16 +7,14 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.relocation.BringIntoViewRequester
+import androidx.compose.foundation.relocation.bringIntoViewRequester
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.KeyboardArrowLeft
 import androidx.compose.material.icons.rounded.Send
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -37,7 +35,6 @@ fun Categories(navController: NavController, vm: CategoriesViewModel = viewModel
     val uiState by vm.uiState.collectAsState()
 
     val colorPickerController = rememberColorPickerController()
-    val bottomBarBringIntoViewRequester = remember {BringIntoViewRequester()}
 
     Scaffold(topBar = {
         MediumTopAppBar(title = { Text("Categories") },
@@ -49,6 +46,7 @@ fun Categories(navController: NavController, vm: CategoriesViewModel = viewModel
                     onClick = navController::popBackStack, color = Color.Transparent
                 ) {
                     Row(modifier = Modifier.padding(vertical = 10.dp, horizontal = 5.dp)) {
+
                         Icon(
                             Icons.Rounded.KeyboardArrowLeft,
                             contentDescription = "settings",
@@ -146,9 +144,7 @@ fun Categories(navController: NavController, vm: CategoriesViewModel = viewModel
                                         .padding(16.dp)
                                         .align(alignment = Alignment.CenterHorizontally),
                                     shape = Shapes.large,
-                                ) {
-                                    Text("          Done            ")
-                                }
+                                ) { Text("          Done            ") }
                             }
                         }
                     }
@@ -192,7 +188,7 @@ fun Categories(navController: NavController, vm: CategoriesViewModel = viewModel
                 ) {
                     Icon(
                         Icons.Rounded.Send,
-                        "Create category"
+                        "Create a category"
                     )
                 }
             }

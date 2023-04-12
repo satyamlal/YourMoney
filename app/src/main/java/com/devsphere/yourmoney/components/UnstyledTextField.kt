@@ -10,16 +10,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.SolidColor
-import androidx.compose.ui.text.TextLayoutResult
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.devsphere.yourmoney.ui.theme.Primary
 import com.devsphere.yourmoney.ui.theme.TextPrimary
 
@@ -72,7 +68,7 @@ fun UnstyledTextField(
                 placeholder = {
                     Row(
                         modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = arrangement,
+                        horizontalArrangement = Arrangement.End,
                         verticalAlignment = CenterVertically
                     ) {
                         placeholder?.invoke()
@@ -88,26 +84,25 @@ fun UnstyledTextField(
                 isError = isError,
                 interactionSource = interactionSource,
                 contentPadding = PaddingValues(horizontal = 16.dp),
-                colors = TextFieldDefaults.colors(
-                    focusedTextColor = TextPrimary,
-                    unfocusedTextColor = Color.Red,
-                    focusedContainerColor = Color.Transparent,
-                    unfocusedContainerColor = Color.Transparent,
-                    disabledContainerColor = Color.Transparent,
-                    cursorColor = Primary,
-                    focusedIndicatorColor = Color.Transparent,
-                    unfocusedIndicatorColor = Color.Transparent,
-                    disabledIndicatorColor = Color.Transparent,
-                ),
 //                colors = TextFieldDefaults.textFieldColors(
-//                    containerColor = Color.Transparent,
 //                    focusedTextColor = TextPrimary,
 //                    unfocusedTextColor = Color.Red,
+//                    focusedContainerColor = Color.Transparent,
+//                    unfocusedContainerColor = Color.Transparent,
+//                    disabledContainerColor = Color.Transparent,
 //                    cursorColor = Primary,
 //                    focusedIndicatorColor = Color.Transparent,
 //                    unfocusedIndicatorColor = Color.Transparent,
 //                    disabledIndicatorColor = Color.Transparent,
 //                ),
+                colors = TextFieldDefaults.textFieldColors(
+                    containerColor = Color.Transparent,
+                    textColor = TextPrimary,
+                    cursorColor = Primary,
+                    focusedIndicatorColor = Color.Transparent,
+                    unfocusedIndicatorColor = Color.Transparent,
+                    disabledIndicatorColor = Color.Transparent,
+                ),
             )
         }
     )

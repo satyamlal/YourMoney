@@ -25,6 +25,7 @@ import com.devsphere.yourmoney.ui.theme.TopAppBarBackground
 import com.devsphere.yourmoney.ui.theme.YourMoneyTheme
 
 class MainActivity : ComponentActivity() {
+    @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)

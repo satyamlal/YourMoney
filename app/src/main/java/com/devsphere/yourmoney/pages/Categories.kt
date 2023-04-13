@@ -36,8 +36,8 @@ import me.saket.swipe.SwipeAction
 import me.saket.swipe.SwipeableActionsBox
 
 @OptIn(
-    ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class,
-    ExperimentalAnimationApi::class
+    ExperimentalMaterial3Api::class,
+    ExperimentalFoundationApi::class
 )
 @Composable
 fun Categories(
@@ -119,11 +119,17 @@ fun Categories(
                                 }
                             }
                             if (index < uiState.categories.size - 1) {
-                                Divider(
-                                    modifier = Modifier.padding(start = 16.dp),
-                                    thickness = 1.dp,
-                                    color = DividerColor
-                                )
+                                Row(
+                                    modifier = Modifier
+                                        .background(BackgroundElevated)
+                                        .height(1.dp)
+                                ) {
+                                    Divider(
+                                        modifier = Modifier.padding(start = 16.dp),
+                                        thickness = 1.dp,
+                                        color = DividerColor
+                                    )
+                                }
                             }
                         }
                     }
@@ -196,7 +202,7 @@ fun Categories(
                     modifier = Modifier
                         .height(44.dp)
                         .weight(1f)
-                        .padding(start = 16.dp, end = 16.dp),
+                        .padding(start = 16.dp),
                     shape = Shapes.large,
                 ) {
                     Column(

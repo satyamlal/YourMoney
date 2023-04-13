@@ -80,9 +80,7 @@ fun Categories(
                             .clip(Shapes.large)
                             .fillMaxWidth()
                     ) {
-                        itemsIndexed(
-                            uiState.categories,
-                            key = { _, category -> category.name }) { index, category ->
+                        itemsIndexed(uiState.categories, key = { _, category -> category.name }) { index, category ->
                             SwipeableActionsBox(
                                 endActions = listOf(
                                     SwipeAction(
@@ -94,8 +92,7 @@ fun Categories(
                                 modifier = Modifier.animateItemPlacement()
                             ) {
                                 TableRow(modifier = Modifier.background(BackgroundElevated)) {
-                                    Row(
-                                        verticalAlignment = Alignment.CenterVertically,
+                                    Row(verticalAlignment = Alignment.CenterVertically,
                                         modifier = Modifier.padding(horizontal = 16.dp)
                                     ) {
                                         Surface(

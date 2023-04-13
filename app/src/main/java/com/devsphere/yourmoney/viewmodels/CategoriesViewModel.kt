@@ -1,18 +1,12 @@
 package com.devsphere.yourmoney.viewmodels
 
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.devsphere.yourmoney.models.Category
-import com.devsphere.yourmoney.ui.theme.Primary
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
-import java.nio.file.Files.delete
 
 
 data class CategoriesState(
@@ -88,11 +82,15 @@ class CategoriesViewModel : ViewModel() {
     }
 
     fun deleteCategory(category: Category) {
-        viewModelScope.launch(Dispatchers.IO) {
-//            db.write {
-//                val deletingCategory = this.query<Category>("_id == $0", category._id).find().first()
-//                delete(deletingCategory)
-//            }
+        val index = _uiState.value.categories.indexOf(category)
+        val newList = mutableListOf<Category>()
+        newList.addAll(_uiState.value.categories)
+        newList.removeAt(index)
+
+        _uiState.update{currentState ->
+            currentState.copy(
+                categories = newList
+            )
         }
     }
 }

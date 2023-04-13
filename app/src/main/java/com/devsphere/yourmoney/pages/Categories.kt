@@ -176,7 +176,8 @@ fun Categories(
                                     onClick = vm::hideColorPicker,
                                     modifier = Modifier
                                         .fillMaxWidth()
-                                        .padding(top = 24.dp),
+                                        .padding(top = 24.dp)
+                                        .background(color = Primary,),
                                 ) {
                                     Text("Done")
                                 }

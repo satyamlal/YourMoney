@@ -1,34 +1,46 @@
 package com.devsphere.yourmoney.pages
 
-import android.content.res.Configuration
+import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.devsphere.yourmoney.R
+import com.devsphere.yourmoney.components.PickerTrigger
 import com.devsphere.yourmoney.models.Recurrence
+import com.devsphere.yourmoney.ui.theme.BackgroundElevated
 import com.devsphere.yourmoney.ui.theme.TopAppBarBackground
-import com.devsphere.yourmoney.ui.theme.YourMoneyTheme
 import com.devsphere.yourmoney.ui.theme.Typography
+import com.devsphere.yourmoney.ui.theme.YourMoneyTheme
+import com.devsphere.yourmoney.viewmodels.ExpensesViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Expenses(navController: NavController) {
+fun Expenses(
+    navController: NavController,
+    vm: ExpensesViewModel = viewModel()
+) {
 
     val recurrences = listOf(
-        Recurrence.None,
         Recurrence.Daily,
         Recurrence.Weekly,
         Recurrence.Monthly,
         Recurrence.Yearly,
     )
+    val state by vm.uiState.collectAsState()
+    var recurrenceMenuOpened by remember {
+        mutableStateOf(false)
+    }
 
     Scaffold(
         topBar = {
@@ -46,12 +58,17 @@ fun Expenses(navController: NavController) {
                     .fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Row {
+                Row(verticalAlignment = Alignment.CenterVertically) {
                     Text(
                         "Total for: ",
                         style = Typography.bodyMedium,
                     )
-                    Text(state.recurrence?.target ?: Recurrence.None.target)
+                    PickerTrigger(
+                        state.recurrence.target ?: Recurrence.None.target,
+                        onClick = { recurrenceMenuOpened = !recurrenceMenuOpened },
+                        modifier = Modifier.padding(start = 16.dp),
+
+                    )
                     DropdownMenu(expanded = recurrenceMenuOpened,
                         onDismissRequest = { recurrenceMenuOpened = false }) {
                         recurrences.forEach { recurrence ->
@@ -67,7 +84,7 @@ fun Expenses(navController: NavController) {
     )
 }
 
-@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Preview(showBackground = true, uiMode = UI_MODE_NIGHT_YES)
 @Composable
 fun ExpensePreview() {
     YourMoneyTheme {

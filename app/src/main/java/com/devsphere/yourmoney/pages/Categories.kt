@@ -232,7 +232,7 @@ fun Categories(
     })
 }
 
-@Preview(uiMode = UI_MODE_NIGHT_YES)
+@Preview(showBackground = true, uiMode = UI_MODE_NIGHT_YES)
 @Composable
 fun CategoriesPreview() {
     YourMoneyTheme {

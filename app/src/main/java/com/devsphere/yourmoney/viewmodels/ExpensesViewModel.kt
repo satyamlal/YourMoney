@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.update
 
 data class ExpensesState(
     val recurrence: Recurrence = Recurrence.Daily,
+    val sumTotal: Double = 1250.68,
 )
 
 class ExpensesViewModel: ViewModel() {

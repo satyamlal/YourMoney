@@ -18,10 +18,7 @@ import androidx.navigation.compose.rememberNavController
 import com.devsphere.yourmoney.R
 import com.devsphere.yourmoney.components.PickerTrigger
 import com.devsphere.yourmoney.models.Recurrence
-import com.devsphere.yourmoney.ui.theme.BackgroundElevated
-import com.devsphere.yourmoney.ui.theme.TopAppBarBackground
-import com.devsphere.yourmoney.ui.theme.Typography
-import com.devsphere.yourmoney.ui.theme.YourMoneyTheme
+import com.devsphere.yourmoney.ui.theme.*
 import com.devsphere.yourmoney.viewmodels.ExpensesViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -68,7 +65,7 @@ fun Expenses(
                         onClick = { recurrenceMenuOpened = !recurrenceMenuOpened },
                         modifier = Modifier.padding(start = 16.dp),
 
-                    )
+                        )
                     DropdownMenu(expanded = recurrenceMenuOpened,
                         onDismissRequest = { recurrenceMenuOpened = false }) {
                         recurrences.forEach { recurrence ->
@@ -78,6 +75,15 @@ fun Expenses(
                             })
                         }
                     }
+                }
+                Row(modifier = Modifier.padding(vertical = 32.dp)) {
+                    Text(
+                        "₹",
+                        style = Typography.bodyMedium,
+                        color = LabelSecondary,
+                        modifier = Modifier.padding(end = 4.dp, top = 3.dp)
+                    )
+                    Text("${state.sumTotal}", style = Typography.titleLarge)
                 }
             }
         }

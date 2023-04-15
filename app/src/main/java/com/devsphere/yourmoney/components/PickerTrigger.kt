@@ -26,7 +26,7 @@ fun PickerTrigger(
         onClick = onClick,
     ) {
         Row(
-            modifier = Modifier.padding(horizontal = 20.dp, vertical = 3.dp),
+            modifier = Modifier.padding(horizontal = 20.dp, vertical = 5.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(label, style = Typography.titleSmall)

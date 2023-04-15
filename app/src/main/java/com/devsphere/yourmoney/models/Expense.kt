@@ -3,6 +3,7 @@ package com.devsphere.yourmoney.models
 import java.time.LocalDate
 
 data class Expense(
+    val id: Int,
     val amount: Double,
     val recurrence: Recurrence,
     val date: LocalDate,

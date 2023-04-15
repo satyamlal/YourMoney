@@ -17,6 +17,8 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.devsphere.yourmoney.R
 import com.devsphere.yourmoney.components.PickerTrigger
+import com.devsphere.yourmoney.components.expensesList.ExpensesList
+import com.devsphere.yourmoney.components.mock.mockExpenses
 import com.devsphere.yourmoney.models.Recurrence
 import com.devsphere.yourmoney.ui.theme.*
 import com.devsphere.yourmoney.viewmodels.ExpensesViewModel
@@ -85,6 +87,7 @@ fun Expenses(
                     )
                     Text("${state.sumTotal}", style = Typography.titleLarge)
                 }
+                ExpensesList(expenses = mockExpenses)
             }
         }
     )

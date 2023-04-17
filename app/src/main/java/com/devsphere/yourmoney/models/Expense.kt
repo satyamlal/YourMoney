@@ -35,5 +35,4 @@ fun List<Expense>.groupedByDay(): Map<LocalDate, DayExpenses> {
 
     // return the map
     return dataMap.toSortedMap()
-//    return dataMap
 }

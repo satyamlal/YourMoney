@@ -24,7 +24,7 @@ fun ExpenseRow(expense: Expense, modifier: Modifier = Modifier) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 4.dp),
+                .padding(top = 8.dp),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             CategoryBadge(category = expense.category)

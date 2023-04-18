@@ -24,15 +24,17 @@ fun List<Expense>.groupedByDay(): Map<LocalDate, DayExpenses> {
     this.forEach { expense ->
         val date = expense.date.toLocalDate()
 
-        if(dataMap[date] == null) {
+        if (dataMap[date] == null) {
             dataMap[date] = DayExpenses(
                 expenses = mutableListOf(),
                 total = 0.0
             )
         }
-        dataMap[date]?.expenses?.add(expense)
-        dataMap[date]?.total?.plus(expense.amount)
+        dataMap[date]!!.expenses.add(expense)
+        dataMap[date]!!.total = dataMap[date]!!.total.plus(expense.amount)
     }
+
+    dataMap.values.forEach { dayExpenses -> dayExpenses.expenses.sortBy { expense -> expense.date } }
 
     // return the map
     return dataMap.toSortedMap(compareByDescending { it })

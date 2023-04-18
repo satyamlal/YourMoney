@@ -11,13 +11,13 @@ import java.time.temporal.ChronoUnit
 
 val faker = Faker()
 
-val mockExpenses: List<Expense> = List(30) {index ->
+val mockExpenses: List<Expense> = List(30) { index ->
     Expense(
         id = index,
         amount = faker.random.nextInt(min = 1, max = 999).toDouble() + faker.random.nextDouble(),
         date = LocalDateTime.now().minus(
-            faker.random.nextInt(min = 0, max = 3).toLong(),
-            ChronoUnit.DAYS
+            faker.random.nextInt(min = 300, max = 345600).toLong(),
+            ChronoUnit.SECONDS
         ),
         recurrence = faker.random.randomValue(
             listOf(
@@ -31,10 +31,38 @@ val mockExpenses: List<Expense> = List(30) {index ->
         note = faker.australia.animals(),
         category = faker.random.randomValue(
             listOf(
-                Category("Bills", Color.Red),
-                Category("Fruits", Color.Yellow),
-                Category("Vegetables", Color.White),
-                Category("Subscriptions", Color.Green),
+                Category(
+                    "Bills",
+                    Color(
+                        faker.random.nextInt(0, 255),
+                        faker.random.nextInt(0, 255),
+                        faker.random.nextInt(0, 255),
+                    )
+                ),
+                Category(
+                    "Fruits",
+                    Color(
+                        faker.random.nextInt(0, 255),
+                        faker.random.nextInt(0, 255),
+                        faker.random.nextInt(0, 255),
+                    )
+                ),
+                Category(
+                    "Vegetables",
+                    Color(
+                        faker.random.nextInt(0, 255),
+                        faker.random.nextInt(0, 255),
+                        faker.random.nextInt(0, 255),
+                    )
+                ),
+                Category(
+                    "Subscriptions",
+                    Color(
+                        faker.random.nextInt(0, 255),
+                        faker.random.nextInt(0, 255),
+                        faker.random.nextInt(0, 255),
+                    ),
+                )
             )
         )
     )

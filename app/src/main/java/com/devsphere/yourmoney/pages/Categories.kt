@@ -5,6 +5,7 @@ import androidx.compose.animation.*
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -80,7 +81,9 @@ fun Categories(
                             .clip(Shapes.large)
                             .fillMaxWidth()
                     ) {
-                        itemsIndexed(uiState.categories, key = { _, category -> category.name }) { index, category ->
+                        itemsIndexed(
+                            uiState.categories,
+                            key = { _, category -> category.name }) { index, category ->
                             SwipeableActionsBox(
                                 endActions = listOf(
                                     SwipeAction(
@@ -92,7 +95,8 @@ fun Categories(
                                 modifier = Modifier.animateItemPlacement()
                             ) {
                                 TableRow(modifier = Modifier.background(BackgroundElevated)) {
-                                    Row(verticalAlignment = Alignment.CenterVertically,
+                                    Row(
+                                        verticalAlignment = Alignment.CenterVertically,
                                         modifier = Modifier.padding(horizontal = 16.dp)
                                     ) {
                                         Surface(
@@ -144,7 +148,8 @@ fun Categories(
                     Dialog(onDismissRequest = vm::hideColorPicker) {
                         Surface(color = BackgroundElevated, shape = Shapes.large) {
                             Column(
-                                modifier = Modifier.padding(all = 30.dp)
+                                modifier = Modifier.padding(all = 30.dp),
+                                horizontalAlignment = Alignment.CenterHorizontally
                             ) {
                                 Text("Select a color", style = Typography.titleLarge)
                                 Row(
@@ -176,8 +181,7 @@ fun Categories(
                                     onClick = vm::hideColorPicker,
                                     modifier = Modifier
                                         .fillMaxWidth()
-                                        .padding(top = 24.dp)
-                                        .background(color = Primary,),
+                                        .padding(top = 24.dp),
                                 ) {
                                     Text("Done")
                                 }

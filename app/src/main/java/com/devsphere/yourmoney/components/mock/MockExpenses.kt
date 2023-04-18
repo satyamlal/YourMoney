@@ -5,11 +5,45 @@ import com.devsphere.yourmoney.models.Category
 import com.devsphere.yourmoney.models.Expense
 import com.devsphere.yourmoney.models.Recurrence
 import io.github.serpro69.kfaker.Faker
-import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.temporal.ChronoUnit
 
 val faker = Faker()
+
+val mockCategories = listOf(
+    Category(
+        "Bills",
+        Color(
+            faker.random.nextInt(0, 255),
+            faker.random.nextInt(0, 255),
+            faker.random.nextInt(0, 255),
+        )
+    ),
+    Category(
+        "Fruits",
+        Color(
+            faker.random.nextInt(0, 255),
+            faker.random.nextInt(0, 255),
+            faker.random.nextInt(0, 255),
+        )
+    ),
+    Category(
+        "Vegetables",
+        Color(
+            faker.random.nextInt(0, 255),
+            faker.random.nextInt(0, 255),
+            faker.random.nextInt(0, 255),
+        )
+    ),
+    Category(
+        "Subscriptions",
+        Color(
+            faker.random.nextInt(0, 255),
+            faker.random.nextInt(0, 255),
+            faker.random.nextInt(0, 255),
+        ),
+    )
+)
 
 val mockExpenses: List<Expense> = List(30) { index ->
     Expense(
@@ -29,41 +63,6 @@ val mockExpenses: List<Expense> = List(30) { index ->
             )
         ),
         note = faker.australia.animals(),
-        category = faker.random.randomValue(
-            listOf(
-                Category(
-                    "Bills",
-                    Color(
-                        faker.random.nextInt(0, 255),
-                        faker.random.nextInt(0, 255),
-                        faker.random.nextInt(0, 255),
-                    )
-                ),
-                Category(
-                    "Fruits",
-                    Color(
-                        faker.random.nextInt(0, 255),
-                        faker.random.nextInt(0, 255),
-                        faker.random.nextInt(0, 255),
-                    )
-                ),
-                Category(
-                    "Vegetables",
-                    Color(
-                        faker.random.nextInt(0, 255),
-                        faker.random.nextInt(0, 255),
-                        faker.random.nextInt(0, 255),
-                    )
-                ),
-                Category(
-                    "Subscriptions",
-                    Color(
-                        faker.random.nextInt(0, 255),
-                        faker.random.nextInt(0, 255),
-                        faker.random.nextInt(0, 255),
-                    ),
-                )
-            )
-        )
+        category = faker.random.randomValue(mockCategories)
     )
 }

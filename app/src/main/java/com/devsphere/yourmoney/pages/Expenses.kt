@@ -1,10 +1,7 @@
 package com.devsphere.yourmoney.pages
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -87,7 +84,7 @@ fun Expenses(
                     )
                     Text("${state.sumTotal}", style = Typography.titleLarge)
                 }
-                ExpensesList(expenses = mockExpenses)
+                ExpensesList(expenses = mockExpenses, modifier = Modifier.weight(1f))
             }
         }
     )

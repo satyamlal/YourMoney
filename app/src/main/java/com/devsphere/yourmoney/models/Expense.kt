@@ -1,13 +1,14 @@
 package com.devsphere.yourmoney.models
 
 import java.time.LocalDate
+import java.time.LocalDateTime
 
 data class Expense(
     val id: Int,
     val amount: Double,
     val recurrence: Recurrence,
-    val date: LocalDate,
-    val note: String,
+    val date: LocalDateTime,
+    val note: String?,
     val category: Category,
 )
 
@@ -21,7 +22,7 @@ fun List<Expense>.groupedByDay(): Map<LocalDate, DayExpenses> {
     val dataMap: MutableMap<LocalDate, DayExpenses> = mutableMapOf()
     // loop through the list
     this.forEach { expense ->
-        val date = expense.date
+        val date = expense.date.toLocalDate()
 
         if(dataMap[date] == null) {
             dataMap[date] = DayExpenses(
@@ -34,5 +35,5 @@ fun List<Expense>.groupedByDay(): Map<LocalDate, DayExpenses> {
     }
 
     // return the map
-    return dataMap.toSortedMap()
+    return dataMap.toSortedMap(compareByDescending { it })
 }

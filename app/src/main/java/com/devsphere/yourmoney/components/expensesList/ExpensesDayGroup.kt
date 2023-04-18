@@ -22,19 +22,25 @@ import java.time.LocalDate
 
 @Composable
 fun ExpensesDayGroup(date: LocalDate, dayExpenses: DayExpenses, modifier: Modifier = Modifier) {
-    Column {
+    Column(modifier = modifier) {
         Text(
             date.formatDay(),
             style = Typography.headlineMedium,
             color = LabelSecondary
         )
-        Divider()
-        dayExpenses.expenses.forEach { expense -> ExpenseRow(expense = expense, modifier = Modifier.padding(top = 12.dp)) }
-        Divider()
-        Row(horizontalArrangement = Arrangement.SpaceBetween) {
+        Divider(modifier = Modifier.padding(top = 10.dp, bottom = 4.dp))
+        dayExpenses.expenses.forEach { expense ->
+            ExpenseRow(
+                expense = expense,
+                modifier = Modifier.padding(top = 12.dp)
+            )
+        }
+        Divider(modifier = Modifier.padding(top = 16.dp, bottom = 4.dp))
+        Row(modifier = Modifier.fillMaxWidth(),horizontalArrangement = Arrangement.SpaceBetween) {
             Text("Total: ", style = Typography.bodyMedium, color = LabelSecondary)
             Text(
-                "₹ ${dayExpenses.total}",
+                DecimalFormat("0.#").format(dayExpenses.total),
+//                "₹ ${dayExpenses.total}",
                 style = Typography.headlineMedium,
                 color = LabelSecondary
             )

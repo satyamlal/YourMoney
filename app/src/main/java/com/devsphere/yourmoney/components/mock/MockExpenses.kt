@@ -14,7 +14,7 @@ val faker = Faker()
 val mockExpenses: List<Expense> = List(30) {index ->
     Expense(
         id = index,
-        amount = faker.random.nextInt(min = 1, max = 999).toDouble(),
+        amount = faker.random.nextInt(min = 1, max = 999).toDouble() + faker.random.nextDouble(),
         date = LocalDateTime.now().minus(
             faker.random.nextInt(min = 0, max = 3).toLong(),
             ChronoUnit.DAYS

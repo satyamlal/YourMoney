@@ -7,14 +7,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.devsphere.yourmoney.models.Expense
 import com.devsphere.yourmoney.ui.theme.*
+import java.text.DecimalFormat
 import java.time.format.DateTimeFormatter
 
 @Composable
 fun ExpenseRow(expense: Expense, modifier: Modifier = Modifier) {
     Column(modifier = modifier) {
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-            Text(expense.note ?: expense.category.name, style = Typography.headlineMedium)
-            Text("₹ ${expense.amount}", style = Typography.headlineMedium)
+            Text(
+                expense.note ?: expense.category.name,
+                style = Typography.headlineMedium
+            )
+
+            Text("₹ ${DecimalFormat("0.#").format(expense.amount)}", style = Typography.headlineMedium)
         }
         Row(
             modifier = Modifier

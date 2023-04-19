@@ -70,7 +70,9 @@ fun Reports(navController: NavController) {
                     }
                 }
 
-                WeeklyChart(expenses = mockExpenses)
+                Box(modifier = Modifier.padding(vertical = 24.dp, horizontal = 16.dp)) {
+                    WeeklyChart(expenses = mockExpenses)
+                }
 
                 ExpensesList(
                     expenses = mockExpenses,

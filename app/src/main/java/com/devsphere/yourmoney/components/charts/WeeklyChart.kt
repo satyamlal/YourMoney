@@ -2,6 +2,7 @@ package com.devsphere.yourmoney.components.charts
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -11,6 +12,7 @@ import com.devsphere.yourmoney.models.groupedByDayOfWeek
 import com.devsphere.yourmoney.ui.theme.LabelSecondary
 import com.github.tehras.charts.bar.BarChart
 import com.github.tehras.charts.bar.BarChartData
+import com.github.tehras.charts.bar.renderer.bar.SimpleBarDrawer
 import com.github.tehras.charts.bar.renderer.label.SimpleValueDrawer
 import com.github.tehras.charts.bar.renderer.yaxis.SimpleYAxisDrawer
 import java.time.DayOfWeek
@@ -59,13 +61,11 @@ fun WeeklyChart(expenses: List<Expense>) {
                 ),
             )
         ),
-        labelDrawer = SimpleValueDrawer(
-            drawLocation = SimpleValueDrawer.DrawLocation.XAxis,
-            labelTextColor = LabelSecondary
-        ),
+        labelDrawer = LabelDrawer(),
         yAxisDrawer = SimpleYAxisDrawer(
             labelTextColor = LabelSecondary,
         ),
-        modifier = Modifier.height(147.dp).fillMaxWidth()
+        barDrawer = BarDrawer(),
+        modifier = Modifier.height(147.dp).fillMaxWidth().padding(bottom = 16.dp)
     )
 }

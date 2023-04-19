@@ -21,6 +21,7 @@ import com.devsphere.yourmoney.components.mock.mockExpenses
 import com.devsphere.yourmoney.models.Recurrence
 import com.devsphere.yourmoney.ui.theme.*
 import com.devsphere.yourmoney.viewmodels.ExpensesViewModel
+import java.text.DecimalFormat
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -83,9 +84,11 @@ fun Expenses(
                         "₹",
                         style = Typography.bodyMedium,
                         color = LabelSecondary,
-                        modifier = Modifier.padding(end = 4.dp, top = 3.dp)
+                        modifier = Modifier.padding(end = 4.dp, top = 4.dp)
                     )
-                    Text("${state.sumTotal}", style = Typography.titleLarge)
+                    Text(
+                        DecimalFormat("0.#").format(state.sumTotal),
+                        style = Typography.titleLarge)
                 }
                 ExpensesList(
                     expenses = mockExpenses,

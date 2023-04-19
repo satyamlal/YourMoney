@@ -12,17 +12,19 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.devsphere.yourmoney.components.mock.mockExpenses
 import com.devsphere.yourmoney.models.Expense
-import com.devsphere.yourmoney.models.groupedByDay
+import com.devsphere.yourmoney.models.groupedByDayOfWeek
 import com.devsphere.yourmoney.ui.theme.YourMoneyTheme
+import java.time.LocalDate
 
 @Composable
 fun ExpensesList(expenses: List<Expense>, modifier: Modifier = Modifier) {
-    val groupedExpenses = expenses.groupedByDay()
+    val groupedExpenses = expenses.groupedByDayOfWeek()
 
     Column(modifier = modifier) {
         groupedExpenses.keys.forEach() { date ->
             if(groupedExpenses[date] != null) {
-                ExpensesDayGroup(date = date, dayExpenses = groupedExpenses[date]!!, modifier = Modifier.padding(24.dp))
+                ExpensesDayGroup(date = LocalDate.now(),
+                    dayExpenses = groupedExpenses[date]!!, modifier = Modifier.padding(16.dp))
             }
         }
     }

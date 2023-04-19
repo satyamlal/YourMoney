@@ -1,12 +1,17 @@
 package com.devsphere.yourmoney.pages
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.devsphere.yourmoney.components.charts.WeeklyChart
+import com.devsphere.yourmoney.components.expensesList.ExpensesList
+import com.devsphere.yourmoney.components.mock.mockExpenses
 import com.devsphere.yourmoney.ui.theme.*
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -15,7 +20,8 @@ fun Reports(navController: NavController) {
     Scaffold(
         topBar = {
             MediumTopAppBar(
-                title = { Text("Expenses") }, colors = TopAppBarDefaults.mediumTopAppBarColors(
+                title = { Text("Expenses") },
+                colors = TopAppBarDefaults.mediumTopAppBarColors(
                     containerColor = TopAppBarBackground
                 )
             )
@@ -35,9 +41,11 @@ fun Reports(navController: NavController) {
                 ) {
                     Column {
                         Text("12 Sep - 28 Sep", style = Typography.titleSmall)
-                        Row {
+                        Row(
+                            modifier = Modifier.padding(top = 4.dp)
+                        ) {
                             Text(
-                                "INR",
+                                "₹",
                                 style = Typography.bodyMedium,
                                 color = LabelSecondary,
                                 modifier = Modifier.padding(end = 4.dp)
@@ -48,9 +56,11 @@ fun Reports(navController: NavController) {
 
                     Column(horizontalAlignment = Alignment.End) {
                         Text("Avg/day", style = Typography.titleSmall)
-                        Row {
+                        Row(
+                            modifier = Modifier.padding(top = 4.dp)
+                        ) {
                             Text(
-                                "INR",
+                                "₹",
                                 style = Typography.bodyMedium,
                                 color = LabelSecondary,
                                 modifier = Modifier.padding(end = 4.dp)
@@ -59,6 +69,15 @@ fun Reports(navController: NavController) {
                         }
                     }
                 }
+
+                WeeklyChart(expenses = mockExpenses)
+
+                ExpensesList(
+                    expenses = mockExpenses,
+                    modifier = Modifier
+                        .weight(1f)
+                        .verticalScroll(rememberScrollState())
+                )
             }
         }
     )

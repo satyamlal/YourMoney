@@ -17,6 +17,30 @@ data class DayExpenses(
     var total: Double
 )
 
+fun List<Expense>.groupedByDay(): Map<LocalDate, DayExpenses> {
+    // create the empty map
+    val dataMap: MutableMap<LocalDate, DayExpenses> = mutableMapOf()
+    // loop through the list
+    this.forEach { expense ->
+        val date = expense.date.toLocalDate()
+
+        if (dataMap[date] == null) {
+            dataMap[date] = DayExpenses(
+                expenses = mutableListOf(),
+                total = 0.0
+            )
+        }
+        dataMap[date]!!.expenses.add(expense)
+        dataMap[date]!!.total = dataMap[date]!!.total.plus(expense.amount)
+    }
+
+    dataMap.values.forEach{dayExpenses ->
+        dayExpenses.expenses.sortBy{expense -> expense.date}
+    }
+    // return the map
+    return dataMap.toSortedMap(compareByDescending { it })
+}
+
 fun List<Expense>.groupedByDayOfWeek(): Map<String, DayExpenses> {
     // create the empty map
     val dataMap: MutableMap<String, DayExpenses> = mutableMapOf()
@@ -33,8 +57,26 @@ fun List<Expense>.groupedByDayOfWeek(): Map<String, DayExpenses> {
         dataMap[dayOfWeek.name]!!.expenses.add(expense)
         dataMap[dayOfWeek.name]!!.total = dataMap[dayOfWeek.name]!!.total.plus(expense.amount)
     }
+    // return the map
+    return dataMap.toSortedMap(compareByDescending { it })
+}
 
+fun List<Expense>.groupedByDayOfMonth(): Map<Int, DayExpenses> {
+    // create the empty map
+    val dataMap: MutableMap<Int, DayExpenses> = mutableMapOf()
+    // loop through the list
+    this.forEach { expense ->
+        val dayOfMonth = expense.date.toLocalDate().dayOfMonth
 
+        if (dataMap[dayOfMonth] == null) {
+            dataMap[dayOfMonth] = DayExpenses(
+                expenses = mutableListOf(),
+                total = 0.0
+            )
+        }
+        dataMap[dayOfMonth]!!.expenses.add(expense)
+        dataMap[dayOfMonth]!!.total = dataMap[dayOfMonth]!!.total.plus(expense.amount)
+    }
     // return the map
     return dataMap.toSortedMap(compareByDescending { it })
 }

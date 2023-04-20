@@ -9,10 +9,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.devsphere.yourmoney.components.charts.MonthlyChart
 import com.devsphere.yourmoney.components.charts.WeeklyChart
 import com.devsphere.yourmoney.components.expensesList.ExpensesList
 import com.devsphere.yourmoney.components.mock.mockExpenses
 import com.devsphere.yourmoney.ui.theme.*
+import java.time.LocalDate
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -40,9 +42,13 @@ fun Reports(navController: NavController) {
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Column {
-                        Text("12 Sep - 28 Sep", style = Typography.titleSmall)
+                        Text(
+                            "12 Sep - 28 Sep",
+                            style = Typography.titleSmall,
+                            modifier = Modifier.padding(start = 13.dp)
+                        )
                         Row(
-                            modifier = Modifier.padding(top = 4.dp)
+                            modifier = Modifier.padding(top = 4.dp, start = 13.dp)
                         ) {
                             Text(
                                 "₹",
@@ -55,7 +61,11 @@ fun Reports(navController: NavController) {
                     }
 
                     Column(horizontalAlignment = Alignment.End) {
-                        Text("Avg/day", style = Typography.titleSmall)
+                        Text(
+                            "Avg/day",
+                            style = Typography.titleSmall,
+                            modifier = Modifier.padding(end = 13.dp)
+                        )
                         Row(
                             modifier = Modifier.padding(top = 4.dp)
                         ) {
@@ -65,13 +75,21 @@ fun Reports(navController: NavController) {
                                 color = LabelSecondary,
                                 modifier = Modifier.padding(end = 4.dp)
                             )
-                            Text("85", style = Typography.headlineMedium)
+                            Text(
+                                "85",
+                                style = Typography.headlineMedium,
+                                modifier = Modifier.padding(end = 13.dp)
+                            )
                         }
                     }
                 }
 
-                Box(modifier = Modifier.padding(vertical = 24.dp, horizontal = 16.dp)) {
-                    WeeklyChart(expenses = mockExpenses)
+                Box(
+                    modifier = Modifier
+                        .height(180.dp)
+                        .padding(vertical = 24.dp, horizontal = 16.dp)
+                ) {
+                    MonthlyChart(expenses = mockExpenses, LocalDate.now())
                 }
 
                 ExpensesList(

@@ -4,13 +4,21 @@ import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.graphics.Canvas
 import androidx.compose.ui.graphics.Paint
 import androidx.compose.ui.graphics.drawscope.DrawScope
+import com.devsphere.yourmoney.models.Recurrence
 import com.devsphere.yourmoney.ui.theme.SystemGray04
 import com.github.tehras.charts.bar.BarChartData
 
-class BarDrawer : com.github.tehras.charts.bar.renderer.bar.BarDrawer {
-
+class BarDrawer constructor(recurrence: Recurrence) :
+    com.github.tehras.charts.bar.renderer.bar.BarDrawer {
     private val barPaint = Paint().apply {
         this.isAntiAlias = true
+    }
+
+    private val rightOffset = when(recurrence) {
+        Recurrence.Weekly -> 24f
+        Recurrence.Monthly -> 6f
+        Recurrence.Yearly -> 18f
+        else -> 0f
     }
 
     override fun drawBar(
@@ -22,7 +30,7 @@ class BarDrawer : com.github.tehras.charts.bar.renderer.bar.BarDrawer {
         canvas.drawRoundRect(
             barArea.left,
             0f,
-            barArea.right + 24f,
+            barArea.right + rightOffset,
             barArea.bottom,
             16f,
             16f,
@@ -33,13 +41,13 @@ class BarDrawer : com.github.tehras.charts.bar.renderer.bar.BarDrawer {
         canvas.drawRoundRect(
             barArea.left,
             barArea.top,
-            barArea.right + 24f,
+            barArea.right + rightOffset,
             barArea.bottom,
             16f,
             16f,
             barPaint.apply {
                 color = bar.color
-            }
+            },
         )
     }
 }

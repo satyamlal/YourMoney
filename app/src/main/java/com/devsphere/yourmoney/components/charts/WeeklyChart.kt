@@ -8,6 +8,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.devsphere.yourmoney.models.Expense
+import com.devsphere.yourmoney.models.Recurrence
 import com.devsphere.yourmoney.models.groupedByDayOfWeek
 import com.devsphere.yourmoney.ui.theme.LabelSecondary
 import com.devsphere.yourmoney.utils.simplifyNumber
@@ -66,7 +67,7 @@ fun WeeklyChart(expenses: List<Expense>) {
             labelValueFormatter = ::simplifyNumber,
             labelTextSize = 14.sp
         ),
-        barDrawer = BarDrawer(),
+        barDrawer = BarDrawer(recurrence = Recurrence.Weekly),
         modifier = Modifier
             .padding(bottom = 16.dp)
             .fillMaxSize()

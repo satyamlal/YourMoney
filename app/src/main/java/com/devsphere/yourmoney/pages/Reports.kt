@@ -90,6 +90,7 @@ fun Reports(navController: NavController) {
                         .padding(vertical = 24.dp, horizontal = 16.dp)
                 ) {
                     MonthlyChart(expenses = mockExpenses, LocalDate.now())
+//                    WeeklyChart(expenses = mockExpenses)
                 }
 
                 ExpensesList(

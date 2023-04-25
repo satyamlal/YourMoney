@@ -61,7 +61,7 @@ fun WeeklyChart(expenses: List<Expense>) {
                 ),
             )
         ),
-        labelDrawer = LabelDrawer(),
+        labelDrawer = LabelDrawer(recurrence = Recurrence.Weekly),
         yAxisDrawer = SimpleYAxisDrawer(
             labelTextColor = LabelSecondary,
             labelValueFormatter = ::simplifyNumber,

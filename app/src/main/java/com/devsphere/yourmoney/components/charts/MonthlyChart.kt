@@ -38,7 +38,7 @@ fun MonthlyChart(expenses: List<Expense>, month: LocalDate){
 
             }
         ),
-        labelDrawer = LabelDrawer(),
+        labelDrawer = LabelDrawer(recurrence = Recurrence.Monthly, lastDay = numberOfDays),
         yAxisDrawer = SimpleYAxisDrawer(
             labelTextColor = LabelSecondary,
             labelValueFormatter = ::simplifyNumber,

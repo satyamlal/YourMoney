@@ -80,3 +80,23 @@ fun List<Expense>.groupedByDayOfMonth(): Map<Int, DayExpenses> {
     // return the map
     return dataMap.toSortedMap(compareByDescending { it })
 }
+
+fun List<Expense>.groupedByMonth(): Map<String, DayExpenses> {
+    // create the empty map
+    val dataMap: MutableMap<String, DayExpenses> = mutableMapOf()
+    // loop through the list
+    this.forEach { expense ->
+        val month = expense.date.toLocalDate().month
+
+        if (dataMap[month.name] == null) {
+            dataMap[month.name] = DayExpenses(
+                expenses = mutableListOf(),
+                total = 0.0
+            )
+        }
+        dataMap[month.name]!!.expenses.add(expense)
+        dataMap[month.name]!!.total = dataMap[month.name]!!.total.plus(expense.amount)
+    }
+    // return the map
+    return dataMap.toSortedMap(compareByDescending { it })
+}

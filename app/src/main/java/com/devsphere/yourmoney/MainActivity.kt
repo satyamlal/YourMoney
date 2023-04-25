@@ -120,7 +120,7 @@ class MainActivity : ComponentActivity() {
                                         .fillMaxSize()
                                         .padding(innerPadding),
                                 ) {
-                                    Reports(navController)
+                                    Reports()
                                 }
                             }
 

@@ -21,13 +21,13 @@ import com.devsphere.yourmoney.components.charts.MonthlyChart
 import com.devsphere.yourmoney.components.charts.WeeklyChart
 import com.devsphere.yourmoney.components.charts.YearlyChart
 import com.devsphere.yourmoney.components.expensesList.ExpensesList
-import com.devsphere.yourmoney.components.mock.mockExpenses
 import com.devsphere.yourmoney.models.Recurrence
 import com.devsphere.yourmoney.ui.theme.LabelSecondary
 import com.devsphere.yourmoney.ui.theme.Typography
+import com.devsphere.yourmoney.utils.formatDayForRange
 import com.devsphere.yourmoney.viewmodels.ReportPageViewModel
 import com.devsphere.yourmoney.viewmodels.viewModelFactory
-import com.devsphere.yourmoney.utils.formatDayForRange
+import java.text.DecimalFormat
 import java.time.LocalDate
 
 @Composable
@@ -38,8 +38,8 @@ fun ReportPage(
     vm: ReportPageViewModel = viewModel(
         key = "$page - ${recurrence.name}",
         factory = viewModelFactory {
-        ReportPageViewModel(page, recurrence)
-    })
+            ReportPageViewModel(page, recurrence)
+        })
 ) {
     val uiState = vm.uiState.collectAsState().value
 
@@ -56,7 +56,8 @@ fun ReportPage(
             modifier = Modifier.fillMaxWidth()
         ) {
             Column {
-                Text("${uiState.dateStart.formatDayForRange()} - ${uiState.dateEnd.formatDayForRange()}",
+                Text(
+                    "${uiState.dateStart.formatDayForRange()} - ${uiState.dateEnd.formatDayForRange()}",
                     style = Typography.titleSmall,
                     modifier = Modifier.padding(start = 13.dp)
                 )
@@ -69,7 +70,10 @@ fun ReportPage(
                         color = LabelSecondary,
                         modifier = Modifier.padding(end = 4.dp)
                     )
-                    Text("223.23", style = Typography.headlineMedium)
+                    Text(
+                        DecimalFormat("0.#").format(uiState.totalInRange),
+                        style = Typography.headlineMedium
+                    )
                 }
             }
 
@@ -89,9 +93,8 @@ fun ReportPage(
                         modifier = Modifier.padding(end = 4.dp)
                     )
                     Text(
-                        "85",
-                        style = Typography.headlineMedium,
-                        modifier = Modifier.padding(end = 13.dp)
+                        DecimalFormat("0.#").format(uiState.avgPerDay),
+                        style = Typography.headlineMedium
                     )
                 }
             }
@@ -111,14 +114,13 @@ fun ReportPage(
                 Recurrence.Yearly -> YearlyChart(expenses = uiState.expenses)
                 else -> Unit
             }
-
         }
-
         ExpensesList(
-            expenses = mockExpenses,
-            modifier = Modifier
+            expenses = uiState.expenses, modifier = Modifier
                 .weight(1f)
-                .verticalScroll(rememberScrollState())
+                .verticalScroll(
+                    rememberScrollState()
+                )
         )
     }
 }

@@ -19,14 +19,14 @@ import java.time.LocalDate
 import java.time.YearMonth
 
 @Composable
-fun MonthlyChart(expenses: List<Expense>, month: LocalDate){
+fun MonthlyChart(expenses: List<Expense>, month: LocalDate) {
     val groupedExpenses = expenses.groupedByDayOfMonth()
     val numberOfDays = YearMonth.of(month.year, month.month).lengthOfMonth()
 
     BarChart(
         barChartData = BarChartData(
             bars = buildList() {
-                for(i in 1..numberOfDays){
+                for (i in 1..numberOfDays) {
                     add(
                         BarChartData.Bar(
                             label = "$i",
@@ -35,18 +35,18 @@ fun MonthlyChart(expenses: List<Expense>, month: LocalDate){
                         )
                     )
                 }
-
             }
         ),
         labelDrawer = LabelDrawer(recurrence = Recurrence.Monthly, lastDay = numberOfDays),
         yAxisDrawer = SimpleYAxisDrawer(
             labelTextColor = LabelSecondary,
             labelValueFormatter = ::simplifyNumber,
+            labelRatio = 7,
             labelTextSize = 14.sp
         ),
         barDrawer = BarDrawer(recurrence = Recurrence.Monthly),
         modifier = Modifier
-            .padding(bottom = 16.dp)
+            .padding(bottom = 20.dp)
             .fillMaxSize()
     )
 }

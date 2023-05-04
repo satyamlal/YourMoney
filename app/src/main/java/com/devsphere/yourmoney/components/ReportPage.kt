@@ -36,7 +36,7 @@ fun ReportPage(
     page: Int,
     recurrence: Recurrence,
     vm: ReportPageViewModel = viewModel(
-        key = "$page - ${recurrence.name}",
+        key = "$page-${recurrence.name}",
         factory = viewModelFactory {
             ReportPageViewModel(page, recurrence)
         })
@@ -57,13 +57,12 @@ fun ReportPage(
         ) {
             Column {
                 Text(
-                    "${uiState.dateStart.formatDayForRange()} - ${uiState.dateEnd.formatDayForRange()}",
-                    style = Typography.titleSmall,
-                    modifier = Modifier.padding(start = 13.dp)
+                    "${
+                        uiState.dateStart.formatDayForRange()
+                    } - ${uiState.dateEnd.formatDayForRange()}",
+                    style = Typography.titleSmall
                 )
-                Row(
-                    modifier = Modifier.padding(top = 4.dp, start = 13.dp)
-                ) {
+                Row(modifier = Modifier.padding(top = 4.dp)) {
                     Text(
                         "₹",
                         style = Typography.bodyMedium,
@@ -76,16 +75,9 @@ fun ReportPage(
                     )
                 }
             }
-
             Column(horizontalAlignment = Alignment.End) {
-                Text(
-                    "Avg/day",
-                    style = Typography.titleSmall,
-                    modifier = Modifier.padding(end = 13.dp)
-                )
-                Row(
-                    modifier = Modifier.padding(top = 4.dp)
-                ) {
+                Text("Avg/day", style = Typography.titleSmall)
+                Row(modifier = Modifier.padding(top = 4.dp)) {
                     Text(
                         "₹",
                         style = Typography.bodyMedium,
@@ -103,7 +95,7 @@ fun ReportPage(
         Box(
             modifier = Modifier
                 .height(180.dp)
-                .padding(vertical = 24.dp, horizontal = 16.dp)
+                .padding(vertical = 16.dp)
         ) {
             when (recurrence) {
                 Recurrence.Weekly -> WeeklyChart(expenses = uiState.expenses)
@@ -111,10 +103,12 @@ fun ReportPage(
                     expenses = uiState.expenses,
                     LocalDate.now()
                 )
+
                 Recurrence.Yearly -> YearlyChart(expenses = uiState.expenses)
                 else -> Unit
             }
         }
+
         ExpensesList(
             expenses = uiState.expenses, modifier = Modifier
                 .weight(1f)

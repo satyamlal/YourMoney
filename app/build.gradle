@@ -1,6 +1,13 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+}
+
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id "io.sentry.android.gradle" version "3.5.0"
 }
 
 android {
@@ -66,8 +73,8 @@ dependencies {
     implementation "com.google.accompanist:accompanist-pager:0.29.1-alpha"
     implementation "com.github.tehras:charts:0.2.4-alpha"
     implementation "com.google.accompanist:accompanist-pager:0.29.1-alpha"
-//    implementation 'io.sentry:sentry-android:6.13.1'
-//    implementation 'io.sentry:sentry-compose-android:6.13.1'
+    implementation 'io.sentry:sentry-android:6.18.1'
+    implementation 'io.sentry:sentry-compose-android:6.18.1'
 
     // Room Local DB
 //    def room_version = "2.4.3"

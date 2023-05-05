@@ -48,7 +48,7 @@ val mockCategories = listOf(
 val mockExpenses: List<Expense> = List(30) { index ->
     Expense(
         id = index,
-        amount = faker.random.nextInt(min = 0, max = 100000).toDouble() + faker.random.nextDouble(),
+        amount = faker.random.nextInt(min = 100, max = 1000000).toDouble() + faker.random.nextDouble(),
         date = LocalDateTime.now().minus(
             faker.random.nextInt(min = 300, max = 345600).toLong(),
             ChronoUnit.SECONDS
@@ -62,7 +62,7 @@ val mockExpenses: List<Expense> = List(30) { index ->
                 Recurrence.Yearly
             )
         ),
-        note = faker.australia.animals(),
+        note = faker.backToTheFuture.characters(),
         category = faker.random.randomValue(mockCategories)
     )
 }

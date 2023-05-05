@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
 
 data class ExpensesState(
     val recurrence: Recurrence = Recurrence.Daily,
-    val sumTotal: Double = 1250.68,
+    val sumTotal: Double = 0.0,
     val expenses: List<Expense> = mockExpenses
 )
 
@@ -35,7 +35,7 @@ class ExpensesViewModel: ViewModel() {
     }
 
     fun setRecurrence(recurrence: Recurrence) {
-        val (start, end, daysInRange) = calculateDateRange(recurrence, 0)
+        val (start, end) = calculateDateRange(recurrence, 0)
 
         val filteredExpenses = mockExpenses.filter { expense ->
             (expense.date.toLocalDate().isAfter(start) && expense.date.toLocalDate()

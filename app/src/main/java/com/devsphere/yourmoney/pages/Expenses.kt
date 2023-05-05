@@ -8,16 +8,13 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.devsphere.yourmoney.R
 import com.devsphere.yourmoney.components.PickerTrigger
 import com.devsphere.yourmoney.components.expensesList.ExpensesList
-import com.devsphere.yourmoney.components.mock.mockExpenses
 import com.devsphere.yourmoney.models.Recurrence
 import com.devsphere.yourmoney.ui.theme.*
 import com.devsphere.yourmoney.viewmodels.ExpensesViewModel
@@ -87,7 +84,7 @@ fun Expenses(
                         modifier = Modifier.padding(end = 4.dp, top = 4.dp)
                     )
                     Text(
-                        DecimalFormat("0.#").format(state.sumTotal),
+                        DecimalFormat("#.##").format(state.sumTotal),
                         style = Typography.titleLarge)
                 }
                 ExpensesList(

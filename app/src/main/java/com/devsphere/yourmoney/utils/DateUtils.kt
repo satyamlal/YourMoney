@@ -45,6 +45,7 @@ fun calculateDateRange(recurrence: Recurrence, page: Int): DateRangeData {
             start = LocalDate.now().minusDays(page.toLong())
             end = start
         }
+
         Recurrence.Weekly -> {
             start =
                 LocalDate.now().minusDays(today.dayOfWeek.value.toLong() - 1)
@@ -52,6 +53,7 @@ fun calculateDateRange(recurrence: Recurrence, page: Int): DateRangeData {
             end = start.plusDays(6)
             daysInRange = 7
         }
+
         Recurrence.Monthly -> {
             start =
                 LocalDate.of(today.year, today.month, 1)
@@ -61,11 +63,13 @@ fun calculateDateRange(recurrence: Recurrence, page: Int): DateRangeData {
             end = start.plusDays(numberOfDays.toLong())
             daysInRange = numberOfDays
         }
+
         Recurrence.Yearly -> {
             start = LocalDate.of(today.year, 1, 1)
             end = LocalDate.of(today.year, 12, 31)
             daysInRange = 365
         }
+
         else -> Unit
     }
 

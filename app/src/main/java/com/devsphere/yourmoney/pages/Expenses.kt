@@ -91,7 +91,7 @@ fun Expenses(
                         style = Typography.titleLarge)
                 }
                 ExpensesList(
-                    expenses = mockExpenses,
+                    expenses = state.expenses,
                     modifier = Modifier
                         .weight(1f)
                         .verticalScroll(rememberScrollState())

@@ -23,6 +23,7 @@ import androidx.navigation.compose.rememberNavController
 import com.devsphere.yourmoney.pages.*
 import com.devsphere.yourmoney.ui.theme.TopAppBarBackground
 import com.devsphere.yourmoney.ui.theme.YourMoneyTheme
+import io.sentry.compose.withSentryObservableEffect
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,7 +32,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             YourMoneyTheme {
                 var showBottomBar by rememberSaveable { mutableStateOf(true) }
-                val navController = rememberNavController()
+                val navController = rememberNavController().withSentryObservableEffect()
                 val backStackEntry by navController.currentBackStackEntryAsState()
 
                 showBottomBar = when (backStackEntry?.destination?.route) {

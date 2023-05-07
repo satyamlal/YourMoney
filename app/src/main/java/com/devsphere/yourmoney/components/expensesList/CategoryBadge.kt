@@ -19,8 +19,8 @@ fun CategoryBadge(category: Category, modifier: Modifier = Modifier) {
         Text(
             category.name,
             color = category.color,
-            style = Typography.labelLarge,
-            modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp),
+            style = Typography.bodySmall,
+            modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
         )
     }
 }

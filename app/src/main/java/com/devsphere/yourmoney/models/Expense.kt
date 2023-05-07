@@ -1,16 +1,35 @@
 package com.devsphere.yourmoney.models
 
+import io.realm.kotlin.types.ObjectId
+import io.realm.kotlin.types.RealmObject
+import io.realm.kotlin.types.annotations.PrimaryKey
 import java.time.LocalDate
 import java.time.LocalDateTime
 
-data class Expense(
-    val id: Int,
-    val amount: Double,
-    val recurrence: Recurrence,
-    val date: LocalDateTime,
-    val note: String?,
-    val category: Category,
-)
+class Expense(): RealmObject{
+    @PrimaryKey
+    var id: ObjectId = ObjectId.create()
+
+    var amount: Double = 0.0
+    lateinit var recurrence: Recurrence
+    lateinit var date: LocalDateTime
+    var note: String = ""
+    lateinit var category: Category
+
+    constructor(
+        amount: Double,
+        recurrence: Recurrence,
+        date: LocalDateTime,
+        note: String,
+        category: Category,
+    ): this() {
+        this.amount = amount
+        this.recurrence = recurrence
+        this.date = date
+        this.note = note
+        this.category = category
+    }
+}
 
 data class DayExpenses(
     val expenses: MutableList<Expense>,

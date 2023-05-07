@@ -29,6 +29,7 @@ import com.devsphere.yourmoney.models.Recurrence
 import com.devsphere.yourmoney.ui.theme.*
 import com.marosseleng.compose.material3.datetimepickers.date.ui.dialog.DatePickerDialog
 import com.devsphere.yourmoney.viewmodels.AddViewModel
+import kotlinx.coroutines.flow.forEach
 import java.util.*
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
@@ -44,8 +45,6 @@ fun Add(navController: NavController, vm: AddViewModel = viewModel()) {
         Recurrence.Monthly,
         Recurrence.Yearly,
     )
-
-    val categories = listOf("Groceries", "Bills", "Fruits", "Vegetables")
 
     val mContext = LocalContext.current
 
@@ -141,13 +140,9 @@ fun Add(navController: NavController, vm: AddViewModel = viewModel()) {
                 })
 
                 Divider(
-                    modifier = Modifier
-                        .padding(
-                            start = 16.dp,
-                            end = 16.dp
-                        ),
-                    thickness = 1.dp,
-                    color = DividerColor
+                    modifier = Modifier.padding(
+                        start = 16.dp, end = 16.dp
+                    ), thickness = 1.dp, color = DividerColor
                 )
                 var datePickerShowing by remember {
                     mutableStateOf(false)
@@ -198,21 +193,23 @@ fun Add(navController: NavController, vm: AddViewModel = viewModel()) {
                     }
                     TextButton(
                         onClick = { categoriesMenuOpened = true }, shape = Shapes.large
-                    ) {// TODO:  change the color of the text based on the selected category
-                        Text(state.category ?: "Select a category first")
+                    ) {
+                        Text(
+                            state.category?.name ?: "Select a category first",
+                            color = state.category?.color ?: Color.White
+                        )
                         DropdownMenu(expanded = categoriesMenuOpened,
                             onDismissRequest = { categoriesMenuOpened = false }) {
-                            categories.forEach { category ->
+                            state.categories?.forEach { category ->
                                 DropdownMenuItem(text = {
                                     Row(verticalAlignment = Alignment.CenterVertically) {
                                         Surface(
                                             modifier = Modifier.size(10.dp),
                                             shape = CircleShape,
-                                            color = Primary, // TODO: change the color based on the category
+                                            color = category.color
                                         ) {}
                                         Text(
-                                            category,
-                                            modifier = Modifier.padding(start = 8.dp)
+                                            category.name, modifier = Modifier.padding(start = 8.dp)
                                         )
                                     }
                                 }, onClick = {

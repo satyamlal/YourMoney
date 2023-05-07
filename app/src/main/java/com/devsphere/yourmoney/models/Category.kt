@@ -15,7 +15,6 @@ class Category() : RealmObject {
         get() {
             val colorComponents = _colorValue.split(",")
             val (red, green, blue) = colorComponents
-
             return Color(red.toFloat(), green.toFloat(), blue.toFloat())
         }
 

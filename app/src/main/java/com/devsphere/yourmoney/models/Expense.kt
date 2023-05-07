@@ -6,15 +6,19 @@ import io.realm.kotlin.types.annotations.PrimaryKey
 import java.time.LocalDate
 import java.time.LocalDateTime
 
-class Expense(): RealmObject{
+class Expense(): RealmObject {
     @PrimaryKey
-    var id: ObjectId = ObjectId.create()
-
+    var _id: ObjectId = ObjectId.create()
     var amount: Double = 0.0
-    lateinit var recurrence: Recurrence
-    lateinit var date: LocalDateTime
+
+    private var _recurrenceName: String = "None"
+    val recurrence: Recurrence get() { return _recurrenceName.toRecurrence() }
+
+    private var _dateValue: String = LocalDateTime.now().toString()
+    val date: LocalDateTime get() { return LocalDateTime.parse(_dateValue) }
+
     var note: String = ""
-    lateinit var category: Category
+    var category: Category? = null
 
     constructor(
         amount: Double,
@@ -22,10 +26,10 @@ class Expense(): RealmObject{
         date: LocalDateTime,
         note: String,
         category: Category,
-    ): this() {
+    ) : this() {
         this.amount = amount
-        this.recurrence = recurrence
-        this.date = date
+        this._recurrenceName = recurrence.name
+        this._dateValue = date.toString()
         this.note = note
         this.category = category
     }

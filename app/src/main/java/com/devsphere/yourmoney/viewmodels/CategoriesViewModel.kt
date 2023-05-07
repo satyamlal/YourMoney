@@ -2,29 +2,46 @@ package com.devsphere.yourmoney.viewmodels
 
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.devsphere.yourmoney.db
 import com.devsphere.yourmoney.models.Category
+import io.realm.kotlin.ext.query
+import io.realm.kotlin.query.RealmResults
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
-
+import kotlinx.coroutines.launch
 
 data class CategoriesState(
     val newCategoryColor: Color = Color.White,
     val newCategoryName: String = "",
     val colorPickerShowing: Boolean = false,
-    val categories: MutableList<Category> = mutableListOf(
-        Category("Bills", Color.Red),
-        Category("Fruits", Color.Yellow),
-        Category("Vegetables", Color.White),
-        Category("Subscriptions", Color.Green),
-    )
+    val categories: List<Category> = listOf()
 )
-
 
 class CategoriesViewModel : ViewModel() {
     private val _uiState = MutableStateFlow(CategoriesState())
     val uiState: StateFlow<CategoriesState> = _uiState.asStateFlow()
+
+    init {
+        _uiState.update { currentState ->
+            currentState.copy(
+                categories = db.query<Category>().find()
+            )
+        }
+
+        viewModelScope.launch(Dispatchers.IO) {
+            db.query<Category>().asFlow().collect { changes ->
+                _uiState.update { currentState ->
+                    currentState.copy(
+                        categories = changes.list
+                    )
+                }
+            }
+        }
+    }
 
     fun setNewCategoryColor(color: Color) {
         _uiState.update { currentState ->
@@ -42,55 +59,45 @@ class CategoriesViewModel : ViewModel() {
         }
     }
 
-    fun showColorPicker(){
-        _uiState.update {currentState ->
+    fun showColorPicker() {
+        _uiState.update { currentState ->
             currentState.copy(
-                colorPickerShowing = true,
+                colorPickerShowing = true
             )
-
         }
     }
 
-    fun hideColorPicker(){
-        _uiState.update {currentState ->
+    fun hideColorPicker() {
+        _uiState.update { currentState ->
             currentState.copy(
-                colorPickerShowing = false,
+                colorPickerShowing = false
             )
-
         }
     }
 
     fun createNewCategory() {
-        //TODO: save new category to local db
-
-        val newCategoriesList = mutableListOf(
-            Category(
-                _uiState.value.newCategoryName,
-                _uiState.value.newCategoryColor
-            )
-        )
-            newCategoriesList.addAll(
-            _uiState.value.categories
-        )
-        _uiState.update { currentState ->
-            currentState.copy(
-                categories = newCategoriesList,
-                newCategoryName = "",
-                newCategoryColor = Color.White,
-            )
+        viewModelScope.launch(Dispatchers.IO) {
+            db.write {
+                this.copyToRealm(Category(
+                    _uiState.value.newCategoryName,
+                    _uiState.value.newCategoryColor
+                ))
+            }
+            _uiState.update { currentState ->
+                currentState.copy(
+                    newCategoryColor = Color.White,
+                    newCategoryName = ""
+                )
+            }
         }
     }
 
     fun deleteCategory(category: Category) {
-        val index = _uiState.value.categories.indexOf(category)
-        val newList = mutableListOf<Category>()
-        newList.addAll(_uiState.value.categories)
-        newList.removeAt(index)
-
-        _uiState.update{currentState ->
-            currentState.copy(
-                categories = newList
-            )
+        viewModelScope.launch(Dispatchers.IO) {
+            db.write {
+                val deletingCategory = this.query<Category>("_id == $0", category._id).find().first()
+                delete(deletingCategory)
+            }
         }
     }
 }

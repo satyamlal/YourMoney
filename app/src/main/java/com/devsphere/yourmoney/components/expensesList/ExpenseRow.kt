@@ -15,12 +15,13 @@ fun ExpenseRow(expense: Expense, modifier: Modifier = Modifier) {
     Column(modifier = modifier) {
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
             Text(
-                expense.note ?: expense.category.name,
+//                expense.note ?: expense.category!!.name,
+                expense.note,
                 style = Typography.headlineMedium
             )
 
             Text(
-                "₹ ${DecimalFormat("0.#").format(expense.amount)}",
+                "₹ ${DecimalFormat("#.##").format(expense.amount)}",
                 style = Typography.headlineMedium
             )
         }
@@ -30,7 +31,7 @@ fun ExpenseRow(expense: Expense, modifier: Modifier = Modifier) {
                 .padding(top = 8.dp),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            CategoryBadge(category = expense.category)
+            CategoryBadge(category = expense.category!!)
             Text(
                 expense.date.format(DateTimeFormatter.ofPattern("HH:mm")),
                 style = Typography.bodyMedium,

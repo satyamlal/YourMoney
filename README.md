@@ -50,7 +50,28 @@ This is an Expense Tracker app build using only Jetpack Compose and Material3 Ic
 - Chart is swipeable to left and right in Reports screen
 - Expenses is filtered using a dropdown menu
 
+## Screenshots
 
+Expense Page:
+![IMG_20230509_151049](https://github.com/satyamlal/YourMoney/assets/26645754/7254239b-03f7-451b-a946-cf5a6a532913)
+
+Settings Page:
+![IMG_20230509_153939](https://github.com/satyamlal/YourMoney/assets/26645754/dd8fa487-f488-471f-aab6-a1c6a6667ab3)
+
+Categories Page: With some added categories
+![IMG_20230509_151925](https://github.com/satyamlal/YourMoney/assets/26645754/68265d59-e0f8-4842-8b6c-62ff64b8f64f)
+
+Categories Page: Custom category can be added
+![IMG_20230509_151833](https://github.com/satyamlal/YourMoney/assets/26645754/60d9d117-df94-4ba0-a155-ed2e42320edd)
+
+Add Page: with added custom categories
+![IMG_20230509_151906](https://github.com/satyamlal/YourMoney/assets/26645754/970ae94b-6fd5-4ba4-ad23-a60341ab2a7a)
+
+Add Page: Custom Date Feature
+![IMG_20230509_151851](https://github.com/satyamlal/YourMoney/assets/26645754/0de6acab-d4df-4fdd-b5bc-ffab4f421c05)
+
+Reports Page: With Extra
+![IMG_20230509_154428](https://github.com/satyamlal/YourMoney/assets/26645754/cb316b90-fed1-4c26-834f-84f8e4c37a9b)
 
 
 ## How to Revert Back to the previous version?

@@ -108,4 +108,4 @@ I'm a full stack Android Developer, with expertise in Jetpack Compose using kotl
 
 
 ## Thanks for visiting
-<img src="https://github.com/satyamlal/YourMoney/assets/26645754/d79a30db-5a9a-484c-bc78-89d023a634da" width="250">
+<img src="https://github.com/satyamlal/YourMoney/assets/26645754/d79a30db-5a9a-484c-bc78-89d023a634da" width="500">

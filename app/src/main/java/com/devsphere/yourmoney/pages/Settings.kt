@@ -7,20 +7,44 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.devsphere.yourmoney.ui.theme.Shapes
-import com.devsphere.yourmoney.ui.theme.BackgroundElevated
-import com.devsphere.yourmoney.ui.theme.TopAppBarBackground
 import com.devsphere.yourmoney.components.TableRow
+import com.devsphere.yourmoney.db
+import com.devsphere.yourmoney.models.Category
+import com.devsphere.yourmoney.models.Expense
+import com.devsphere.yourmoney.ui.theme.BackgroundElevated
 import com.devsphere.yourmoney.ui.theme.DividerColor
+import com.devsphere.yourmoney.ui.theme.Shapes
+import com.devsphere.yourmoney.ui.theme.TopAppBarBackground
+import io.realm.kotlin.ext.query
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Settings(navController: NavController) {
+    val coroutineScope = rememberCoroutineScope()
+    var deleteConfirmationShowing by remember {
+        mutableStateOf(false)
+    }
+
+    val eraseAllData: () -> Unit = {
+        coroutineScope.launch {
+            db.write {
+                val expenses = this.query<Expense>().find()
+                val categories = this.query<Category>().find()
+
+                delete(expenses)
+                delete(categories)
+
+                deleteConfirmationShowing = false
+            }
+        }
+    }
+
     Scaffold(
         topBar = {
             MediumTopAppBar(
@@ -39,11 +63,40 @@ fun Settings(navController: NavController) {
                         .background(BackgroundElevated)
                         .fillMaxWidth()
                 ) {
-                    TableRow(label = "Categories", hasArrow = true, modifier = Modifier.clickable{
-                        navController.navigate("settings/categories")
-                    })
-                    Divider(modifier = Modifier.padding(start = 16.dp, end = 16.dp), thickness = 1.dp, color = DividerColor)
-                    TableRow(label = "Erase all data", isDestructive = true)
+                    TableRow(
+                        label = "Categories",
+                        hasArrow = true,
+                        modifier = Modifier.clickable {
+                            navController.navigate("settings/categories")
+                        })
+                    Divider(
+                        modifier = Modifier
+                            .padding(start = 16.dp), thickness = 1.dp, color = DividerColor
+                    )
+                    TableRow(
+                        label = "Erase all data",
+                        isDestructive = true,
+                        modifier = Modifier.clickable {
+                            deleteConfirmationShowing = true
+                        })
+
+                    if (deleteConfirmationShowing) {
+                        AlertDialog(
+                            onDismissRequest = { deleteConfirmationShowing = false },
+                            title = { Text("Are you sure?") },
+                            text = { Text("This action cannot be undone.") },
+                            confirmButton = {
+                                TextButton(onClick = eraseAllData) {
+                                    Text("Delete everything")
+                                }
+                            },
+                            dismissButton = {
+                                TextButton(onClick = { deleteConfirmationShowing = false }) {
+                                    Text("Cancel")
+                                }
+                            }
+                        )
+                    }
                 }
             }
         }

@@ -5,7 +5,6 @@ import androidx.compose.animation.*
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -27,18 +26,18 @@ import androidx.compose.ui.window.Dialog
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.github.skydoves.colorpicker.compose.*
 import com.devsphere.yourmoney.R
 import com.devsphere.yourmoney.components.TableRow
 import com.devsphere.yourmoney.components.UnstyledTextField
 import com.devsphere.yourmoney.ui.theme.*
 import com.devsphere.yourmoney.viewmodels.CategoriesViewModel
-import com.github.skydoves.colorpicker.compose.*
 import me.saket.swipe.SwipeAction
 import me.saket.swipe.SwipeableActionsBox
 
 @OptIn(
-    ExperimentalMaterial3Api::class,
-    ExperimentalFoundationApi::class
+    ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class,
+    ExperimentalAnimationApi::class
 )
 @Composable
 fun Categories(
@@ -120,11 +119,7 @@ fun Categories(
                                 }
                             }
                             if (index < uiState.categories.size - 1) {
-                                Row(
-                                    modifier = Modifier
-                                        .background(BackgroundElevated)
-                                        .height(1.dp)
-                                ) {
+                                Row(modifier = Modifier.background(BackgroundElevated).height(1.dp)) {
                                     Divider(
                                         modifier = Modifier.padding(start = 16.dp),
                                         thickness = 1.dp,
@@ -148,8 +143,7 @@ fun Categories(
                     Dialog(onDismissRequest = vm::hideColorPicker) {
                         Surface(color = BackgroundElevated, shape = Shapes.large) {
                             Column(
-                                modifier = Modifier.padding(all = 30.dp),
-                                horizontalAlignment = Alignment.CenterHorizontally
+                                modifier = Modifier.padding(all = 30.dp)
                             ) {
                                 Text("Select a color", style = Typography.titleLarge)
                                 Row(

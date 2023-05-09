@@ -6,7 +6,6 @@ import androidx.lifecycle.viewModelScope
 import com.devsphere.yourmoney.db
 import com.devsphere.yourmoney.models.Category
 import io.realm.kotlin.ext.query
-import io.realm.kotlin.query.RealmResults
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -78,10 +77,12 @@ class CategoriesViewModel : ViewModel() {
     fun createNewCategory() {
         viewModelScope.launch(Dispatchers.IO) {
             db.write {
-                this.copyToRealm(Category(
-                    _uiState.value.newCategoryName,
-                    _uiState.value.newCategoryColor
-                ))
+                this.copyToRealm(
+                    Category(
+                        _uiState.value.newCategoryName,
+                        _uiState.value.newCategoryColor
+                    )
+                )
             }
             _uiState.update { currentState ->
                 currentState.copy(
@@ -95,7 +96,8 @@ class CategoriesViewModel : ViewModel() {
     fun deleteCategory(category: Category) {
         viewModelScope.launch(Dispatchers.IO) {
             db.write {
-                val deletingCategory = this.query<Category>("_id == $0", category._id).find().first()
+                val deletingCategory =
+                    this.query<Category>("_id == $0", category._id).find().first()
                 delete(deletingCategory)
             }
         }

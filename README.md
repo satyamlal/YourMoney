@@ -19,9 +19,9 @@ This is an Expense Tracker app build using only Jetpack Compose and Material3 Ic
 
 ## Badges
 
-[Realm db] (https://webimages.mongodb.com/_com_assets/cms/ku4ddeuf4tkw2nhdr-realm_social_share.png)](https://www.mongodb.com/docs/realm/sdk/kotlin/install/#std-label-kotlin-install-android)
+[Realm db (https://webimages.mongodb.com/_com_assets/cms/ku4ddeuf4tkw2nhdr-realm_social_share.png)](https://www.mongodb.com/docs/realm/sdk/kotlin/install/#std-label-kotlin-install-android)
 
-[Sentry] (https://vectorlogoseek.com/wp-content/uploads/2020/02/sentry-io-vector-logo.png)](https://opensource.org/licenses/)
+[Sentry (https://vectorlogoseek.com/wp-content/uploads/2020/02/sentry-io-vector-logo.png)](https://opensource.org/licenses/)
 
 
 ## Color Reference

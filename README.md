@@ -53,7 +53,7 @@ This is an Expense Tracker app build using only Jetpack Compose and Material3 Ic
 ## Screenshots
 
 Expense Page:
-<img src="https://github.com/satyamlal/YourMoney/assets/26645754/7254239b-03f7-451b-a946-cf5a6a532913" width="100" height="100">
+<img src="https://github.com/satyamlal/YourMoney/assets/26645754/7254239b-03f7-451b-a946-cf5a6a532913" width="250">
 
 Settings Page:
 ![IMG_20230509_153939](https://github.com/satyamlal/YourMoney/assets/26645754/dd8fa487-f488-471f-aab6-a1c6a6667ab3=250x250)

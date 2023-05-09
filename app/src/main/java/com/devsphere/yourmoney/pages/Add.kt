@@ -1,20 +1,37 @@
 package com.devsphere.yourmoney.pages
 
-import android.app.DatePickerDialog
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
-import android.widget.DatePicker
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material3.Button
+import androidx.compose.material3.Divider
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MediumTopAppBar
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
@@ -26,15 +43,17 @@ import androidx.navigation.compose.rememberNavController
 import com.devsphere.yourmoney.components.TableRow
 import com.devsphere.yourmoney.components.UnstyledTextField
 import com.devsphere.yourmoney.models.Recurrence
-import com.devsphere.yourmoney.ui.theme.*
-import com.marosseleng.compose.material3.datetimepickers.date.ui.dialog.DatePickerDialog
+import com.devsphere.yourmoney.ui.theme.BackgroundElevated
+import com.devsphere.yourmoney.ui.theme.DividerColor
+import com.devsphere.yourmoney.ui.theme.Shapes
+import com.devsphere.yourmoney.ui.theme.TopAppBarBackground
+import com.devsphere.yourmoney.ui.theme.Typography
+import com.devsphere.yourmoney.ui.theme.YourMoneyTheme
 import com.devsphere.yourmoney.viewmodels.AddViewModel
-import kotlinx.coroutines.flow.forEach
-import java.util.*
+import com.marosseleng.compose.material3.datetimepickers.date.ui.dialog.DatePickerDialog
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
 @Composable
-
 fun Add(navController: NavController, vm: AddViewModel = viewModel()) {
     val state by vm.uiState.collectAsState()
 
@@ -43,41 +62,13 @@ fun Add(navController: NavController, vm: AddViewModel = viewModel()) {
         Recurrence.Daily,
         Recurrence.Weekly,
         Recurrence.Monthly,
-        Recurrence.Yearly,
+        Recurrence.Yearly
     )
-
-    val mContext = LocalContext.current
-
-    val mYear: Int
-    val mMonth: Int
-    val mDay: Int
-
-    val mCalendar = Calendar.getInstance()
-
-    mYear = mCalendar.get(Calendar.YEAR)
-    mMonth = mCalendar.get(Calendar.MONTH) + 1
-    mDay = mCalendar.get(Calendar.DAY_OF_MONTH)
-
-    var mDate by remember {
-        mutableStateOf(
-            "${mCalendar.get(Calendar.DAY_OF_MONTH)}-${mCalendar.get(Calendar.MONTH) + 1}-${
-                mCalendar.get(
-                    Calendar.YEAR
-                )
-            }"
-        )
-    }
-
-    val mDatePicker = DatePickerDialog(
-        mContext, { _: DatePicker, selectedYear: Int, selectedMonth: Int, selectedDay: Int ->
-            mDate = "${selectedDay}-${selectedMonth + 1}-${selectedYear}"
-        }, mYear, mMonth, mDay
-    )
-    mDatePicker.datePicker.maxDate = mCalendar.timeInMillis
 
     Scaffold(topBar = {
         MediumTopAppBar(
-            title = { Text("Add") }, colors = TopAppBarDefaults.mediumTopAppBarColors(
+            title = { Text("Add") },
+            colors = TopAppBarDefaults.mediumTopAppBarColors(
                 containerColor = TopAppBarBackground
             )
         )
@@ -98,16 +89,11 @@ fun Add(navController: NavController, vm: AddViewModel = viewModel()) {
                         value = state.amount,
                         onValueChange = vm::setAmount,
                         modifier = Modifier.fillMaxWidth(),
-                        colors = TextFieldDefaults.textFieldColors(
-                            containerColor = Color.Transparent,
-                            unfocusedIndicatorColor = Color.Transparent,
-                            focusedIndicatorColor = Color.Transparent,
-                        ),
                         placeholder = { Text("0") },
                         arrangement = Arrangement.End,
                         maxLines = 1,
                         textStyle = TextStyle(
-                            textAlign = TextAlign.End,
+                            textAlign = TextAlign.Right,
                         ),
                         keyboardOptions = KeyboardOptions(
                             keyboardType = KeyboardType.Number,
@@ -115,7 +101,7 @@ fun Add(navController: NavController, vm: AddViewModel = viewModel()) {
                     )
                 })
                 Divider(
-                    modifier = Modifier.padding(start = 16.dp, end = 16.dp),
+                    modifier = Modifier.padding(start = 16.dp),
                     thickness = 1.dp,
                     color = DividerColor
                 )
@@ -126,7 +112,7 @@ fun Add(navController: NavController, vm: AddViewModel = viewModel()) {
                     TextButton(
                         onClick = { recurrenceMenuOpened = true }, shape = Shapes.large
                     ) {
-                        Text(state.recurrence?.name ?: Recurrence.None.name)
+                        Text(state.recurrence.name)
                         DropdownMenu(expanded = recurrenceMenuOpened,
                             onDismissRequest = { recurrenceMenuOpened = false }) {
                             recurrences.forEach { recurrence ->
@@ -138,11 +124,10 @@ fun Add(navController: NavController, vm: AddViewModel = viewModel()) {
                         }
                     }
                 })
-
                 Divider(
-                    modifier = Modifier.padding(
-                        start = 16.dp, end = 16.dp
-                    ), thickness = 1.dp, color = DividerColor
+                    modifier = Modifier.padding(start = 16.dp),
+                    thickness = 1.dp,
+                    color = DividerColor
                 )
                 var datePickerShowing by remember {
                     mutableStateOf(false)
@@ -152,38 +137,34 @@ fun Add(navController: NavController, vm: AddViewModel = viewModel()) {
                         Text(state.date.toString())
                     }
                     if (datePickerShowing) {
-                        DatePickerDialog(
-                            onDismissRequest = { datePickerShowing = false },
-                            onDateChange = { it ->
+                        DatePickerDialog(onDismissRequest = { datePickerShowing = false },
+                            onDateChange = {
                                 vm.setDate(it)
                                 datePickerShowing = false
                             },
                             initialDate = state.date,
-                            title = { Text("Select a Date", style = Typography.titleLarge) },
-                        )
+                            title = { Text("Select date", style = Typography.titleLarge) })
                     }
                 })
-
                 Divider(
-                    modifier = Modifier.padding(start = 16.dp, end = 16.dp),
+                    modifier = Modifier.padding(start = 16.dp),
                     thickness = 1.dp,
                     color = DividerColor
                 )
                 TableRow(label = "Note", detailContent = {
                     UnstyledTextField(
                         value = state.note,
-                        onValueChange = vm::setNote,
                         placeholder = { Text("Leave some notes") },
-                        modifier = Modifier.fillMaxWidth(),
                         arrangement = Arrangement.End,
+                        onValueChange = vm::setNote,
+                        modifier = Modifier.fillMaxWidth(),
                         textStyle = TextStyle(
                             textAlign = TextAlign.Right,
                         ),
                     )
                 })
-
                 Divider(
-                    modifier = Modifier.padding(start = 16.dp, end = 16.dp),
+                    modifier = Modifier.padding(start = 16.dp),
                     thickness = 1.dp,
                     color = DividerColor
                 )
@@ -225,8 +206,9 @@ fun Add(navController: NavController, vm: AddViewModel = viewModel()) {
                 onClick = vm::submitExpense,
                 modifier = Modifier.padding(16.dp),
                 shape = Shapes.large,
+                enabled = state.category != null
             ) {
-                Text("Submit Expenses")
+                Text("Submit expense")
             }
         }
     })

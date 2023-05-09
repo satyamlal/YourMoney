@@ -48,7 +48,7 @@ class MainActivity : ComponentActivity() {
                                     selected = backStackEntry?.destination?.route == "expenses",
                                     onClick = { navController.navigate("expenses") },
                                     label = {
-                                        Text("Expense")
+                                        Text("Expenses")
                                     },
                                     icon = {
                                         Icon(
@@ -57,7 +57,6 @@ class MainActivity : ComponentActivity() {
                                         )
                                     }
                                 )
-
                                 NavigationBarItem(
                                     selected = backStackEntry?.destination?.route == "reports",
                                     onClick = { navController.navigate("reports") },
@@ -71,7 +70,6 @@ class MainActivity : ComponentActivity() {
                                         )
                                     }
                                 )
-
                                 NavigationBarItem(
                                     selected = backStackEntry?.destination?.route == "add",
                                     onClick = { navController.navigate("add") },
@@ -85,7 +83,6 @@ class MainActivity : ComponentActivity() {
                                         )
                                     }
                                 )
-
                                 NavigationBarItem(
                                     selected = backStackEntry?.destination?.route?.startsWith("settings")
                                         ?: false,
@@ -104,7 +101,10 @@ class MainActivity : ComponentActivity() {
                         }
                     },
                     content = { innerPadding ->
-                        NavHost(navController = navController, startDestination = "expenses") {
+                        NavHost(
+                            navController = navController,
+                            startDestination = "expenses"
+                        ) {
                             composable("expenses") {
                                 Surface(
                                     modifier = Modifier
@@ -114,7 +114,6 @@ class MainActivity : ComponentActivity() {
                                     Expenses(navController)
                                 }
                             }
-
                             composable("reports") {
                                 Surface(
                                     modifier = Modifier
@@ -124,7 +123,6 @@ class MainActivity : ComponentActivity() {
                                     Reports()
                                 }
                             }
-
                             composable("add") {
                                 Surface(
                                     modifier = Modifier
@@ -134,7 +132,6 @@ class MainActivity : ComponentActivity() {
                                     Add(navController)
                                 }
                             }
-
                             composable("settings") {
                                 Surface(
                                     modifier = Modifier
@@ -144,7 +141,6 @@ class MainActivity : ComponentActivity() {
                                     Settings(navController)
                                 }
                             }
-
                             composable("settings/categories") {
                                 Surface(
                                     modifier = Modifier

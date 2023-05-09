@@ -53,13 +53,13 @@ fun Reports(vm: ReportsViewModel = viewModel()) {
             )
         },
         content = { innerPadding ->
-            val numberOfPages = when (uiState.recurrence) {
+            val numOfPages = when (uiState.recurrence) {
                 Recurrence.Weekly -> 53
                 Recurrence.Monthly -> 12
                 Recurrence.Yearly -> 1
                 else -> 53
             }
-            HorizontalPager(count = numberOfPages, reverseLayout = true) {page ->
+            HorizontalPager(count = numOfPages, reverseLayout = true) { page ->
                 ReportPage(innerPadding, page, uiState.recurrence)
             }
         }

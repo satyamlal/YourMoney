@@ -1,8 +1,7 @@
 package com.devsphere.yourmoney
 
 
-import com.devsphere.yourmoney.models.Category
-import com.devsphere.yourmoney.models.Expense
+import com.devsphere.yourmoney.models.*
 import io.realm.kotlin.Realm
 import io.realm.kotlin.RealmConfiguration
 

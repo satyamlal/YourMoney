@@ -23,7 +23,6 @@ class ReportsViewModel: ViewModel() {
             )
         }
     }
-
     fun openRecurrenceMenu() {
         _uiState.update { currentState ->
             currentState.copy(
@@ -31,7 +30,6 @@ class ReportsViewModel: ViewModel() {
             )
         }
     }
-
     fun closeRecurrenceMenu() {
         _uiState.update { currentState ->
             currentState.copy(

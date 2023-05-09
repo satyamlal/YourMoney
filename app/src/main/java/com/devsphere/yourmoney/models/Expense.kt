@@ -37,13 +37,11 @@ class Expense(): RealmObject {
 
 data class DayExpenses(
     val expenses: MutableList<Expense>,
-    var total: Double
+    var total: Double,
 )
 
 fun List<Expense>.groupedByDay(): Map<LocalDate, DayExpenses> {
-    // create the empty map
     val dataMap: MutableMap<LocalDate, DayExpenses> = mutableMapOf()
-    // loop through the list
     this.forEach { expense ->
         val date = expense.date.toLocalDate()
 
@@ -57,17 +55,14 @@ fun List<Expense>.groupedByDay(): Map<LocalDate, DayExpenses> {
         dataMap[date]!!.total = dataMap[date]!!.total.plus(expense.amount)
     }
 
-    dataMap.values.forEach{dayExpenses ->
-        dayExpenses.expenses.sortBy{expense -> expense.date}
+    dataMap.values.forEach { dayExpenses ->
+        dayExpenses.expenses.sortBy { expense -> expense.date }
     }
-    // return the map
     return dataMap.toSortedMap(compareByDescending { it })
 }
 
 fun List<Expense>.groupedByDayOfWeek(): Map<String, DayExpenses> {
-    // create the empty map
     val dataMap: MutableMap<String, DayExpenses> = mutableMapOf()
-    // loop through the list
     this.forEach { expense ->
         val dayOfWeek = expense.date.toLocalDate().dayOfWeek
 
@@ -80,14 +75,11 @@ fun List<Expense>.groupedByDayOfWeek(): Map<String, DayExpenses> {
         dataMap[dayOfWeek.name]!!.expenses.add(expense)
         dataMap[dayOfWeek.name]!!.total = dataMap[dayOfWeek.name]!!.total.plus(expense.amount)
     }
-    // return the map
     return dataMap.toSortedMap(compareByDescending { it })
 }
 
 fun List<Expense>.groupedByDayOfMonth(): Map<Int, DayExpenses> {
-    // create the empty map
     val dataMap: MutableMap<Int, DayExpenses> = mutableMapOf()
-    // loop through the list
     this.forEach { expense ->
         val dayOfMonth = expense.date.toLocalDate().dayOfMonth
 
@@ -100,14 +92,11 @@ fun List<Expense>.groupedByDayOfMonth(): Map<Int, DayExpenses> {
         dataMap[dayOfMonth]!!.expenses.add(expense)
         dataMap[dayOfMonth]!!.total = dataMap[dayOfMonth]!!.total.plus(expense.amount)
     }
-    // return the map
     return dataMap.toSortedMap(compareByDescending { it })
 }
 
 fun List<Expense>.groupedByMonth(): Map<String, DayExpenses> {
-    // create the empty map
     val dataMap: MutableMap<String, DayExpenses> = mutableMapOf()
-    // loop through the list
     this.forEach { expense ->
         val month = expense.date.toLocalDate().month
 
@@ -120,6 +109,5 @@ fun List<Expense>.groupedByMonth(): Map<String, DayExpenses> {
         dataMap[month.name]!!.expenses.add(expense)
         dataMap[month.name]!!.total = dataMap[month.name]!!.total.plus(expense.amount)
     }
-    // return the map
     return dataMap.toSortedMap(compareByDescending { it })
 }

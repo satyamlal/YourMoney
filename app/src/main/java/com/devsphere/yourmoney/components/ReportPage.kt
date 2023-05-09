@@ -64,7 +64,7 @@ fun ReportPage(
                 )
                 Row(modifier = Modifier.padding(top = 4.dp)) {
                     Text(
-                        "₹",
+                        "USD",
                         style = Typography.bodyMedium,
                         color = LabelSecondary,
                         modifier = Modifier.padding(end = 4.dp)
@@ -79,7 +79,7 @@ fun ReportPage(
                 Text("Avg/day", style = Typography.titleSmall)
                 Row(modifier = Modifier.padding(top = 4.dp)) {
                     Text(
-                        "₹",
+                        "USD",
                         style = Typography.bodyMedium,
                         color = LabelSecondary,
                         modifier = Modifier.padding(end = 4.dp)

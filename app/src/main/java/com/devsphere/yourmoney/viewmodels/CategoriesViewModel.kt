@@ -30,7 +30,6 @@ class CategoriesViewModel : ViewModel() {
                 categories = db.query<Category>().find()
             )
         }
-
         viewModelScope.launch(Dispatchers.IO) {
             db.query<Category>().asFlow().collect { changes ->
                 _uiState.update { currentState ->

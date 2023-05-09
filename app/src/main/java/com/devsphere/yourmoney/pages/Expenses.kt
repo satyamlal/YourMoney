@@ -16,7 +16,10 @@ import androidx.navigation.compose.rememberNavController
 import com.devsphere.yourmoney.components.PickerTrigger
 import com.devsphere.yourmoney.components.expensesList.ExpensesList
 import com.devsphere.yourmoney.models.Recurrence
-import com.devsphere.yourmoney.ui.theme.*
+import com.devsphere.yourmoney.ui.theme.YourMoneyTheme
+import com.devsphere.yourmoney.ui.theme.LabelSecondary
+import com.devsphere.yourmoney.ui.theme.TopAppBarBackground
+import com.devsphere.yourmoney.ui.theme.Typography
 import com.devsphere.yourmoney.viewmodels.ExpensesViewModel
 import java.text.DecimalFormat
 
@@ -26,13 +29,13 @@ fun Expenses(
     navController: NavController,
     vm: ExpensesViewModel = viewModel()
 ) {
-
     val recurrences = listOf(
         Recurrence.Daily,
         Recurrence.Weekly,
         Recurrence.Monthly,
-        Recurrence.Yearly,
+        Recurrence.Yearly
     )
+
     val state by vm.uiState.collectAsState()
     var recurrenceMenuOpened by remember {
         mutableStateOf(false)
@@ -41,7 +44,8 @@ fun Expenses(
     Scaffold(
         topBar = {
             MediumTopAppBar(
-                title = { Text("Expenses") }, colors = TopAppBarDefaults.mediumTopAppBarColors(
+                title = { Text("Expenses") },
+                colors = TopAppBarDefaults.mediumTopAppBarColors(
                     containerColor = TopAppBarBackground
                 )
             )
@@ -57,15 +61,14 @@ fun Expenses(
             ) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Text(
-                        "Total for: ",
+                        "Total for:",
                         style = Typography.bodyMedium,
                     )
                     PickerTrigger(
                         state.recurrence.target ?: Recurrence.None.target,
                         onClick = { recurrenceMenuOpened = !recurrenceMenuOpened },
                         modifier = Modifier.padding(start = 16.dp)
-
-                        )
+                    )
                     DropdownMenu(expanded = recurrenceMenuOpened,
                         onDismissRequest = { recurrenceMenuOpened = false }) {
                         recurrences.forEach { recurrence ->
@@ -78,20 +81,23 @@ fun Expenses(
                 }
                 Row(modifier = Modifier.padding(vertical = 32.dp)) {
                     Text(
-                        "₹",
+                        "$",
                         style = Typography.bodyMedium,
                         color = LabelSecondary,
                         modifier = Modifier.padding(end = 4.dp, top = 4.dp)
                     )
                     Text(
-                        DecimalFormat("#.##").format(state.sumTotal),
-                        style = Typography.titleLarge)
+                        DecimalFormat("0.#").format(state.sumTotal),
+                        style = Typography.titleLarge
+                    )
                 }
                 ExpensesList(
                     expenses = state.expenses,
                     modifier = Modifier
                         .weight(1f)
-                        .verticalScroll(rememberScrollState())
+                        .verticalScroll(
+                            rememberScrollState()
+                        )
                 )
             }
         }

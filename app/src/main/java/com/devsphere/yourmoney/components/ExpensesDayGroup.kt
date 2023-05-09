@@ -1,10 +1,11 @@
-package com.devsphere.yourmoney.components.expensesList
+package com.devsphere.yourmoney.components
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.gestures.scrollable
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -43,7 +44,7 @@ fun ExpensesDayGroup(
         ) {
             Text("Total:", style = Typography.bodyMedium, color = LabelSecondary)
             Text(
-                DecimalFormat("₹ 0.#").format(dayExpenses.total),
+                DecimalFormat("USD 0.#").format(dayExpenses.total),
                 style = Typography.headlineMedium,
                 color = LabelSecondary
             )

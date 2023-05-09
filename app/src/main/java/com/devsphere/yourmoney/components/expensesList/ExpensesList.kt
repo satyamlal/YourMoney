@@ -8,10 +8,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.devsphere.yourmoney.components.mock.mockExpenses
+import com.devsphere.yourmoney.components.ExpensesDayGroup
 import com.devsphere.yourmoney.models.Expense
 import com.devsphere.yourmoney.models.groupedByDay
-import com.devsphere.yourmoney.ui.theme.YourMoneyTheme
 
 @Composable
 fun ExpensesList(expenses: List<Expense>, modifier: Modifier = Modifier) {
@@ -31,13 +30,5 @@ fun ExpensesList(expenses: List<Expense>, modifier: Modifier = Modifier) {
                 }
             }
         }
-    }
-}
-
-@Preview(uiMode = UI_MODE_NIGHT_YES, showBackground = true)
-@Composable
-fun Preview() {
-    YourMoneyTheme {
-        ExpensesList(mockExpenses)
     }
 }

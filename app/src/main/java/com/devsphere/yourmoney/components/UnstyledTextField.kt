@@ -10,9 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Shape
-import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.graphics.*
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
@@ -46,7 +44,8 @@ fun UnstyledTextField(
 ) {
     // If color is not provided via the text style, use content color as a default
     val textColor = TextPrimary
-    val mergedTextStyle = textStyle.merge(TextStyle(color = textColor))
+    val mergedTextStyle =
+        textStyle.merge(TextStyle(color = textColor))
 
     BasicTextField(value = value,
         onValueChange = onValueChange,
@@ -69,7 +68,7 @@ fun UnstyledTextField(
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = arrangement,
-                        verticalAlignment = CenterVertically,
+                        verticalAlignment = CenterVertically
                     ) {
                         placeholder?.invoke()
                     }
@@ -84,12 +83,12 @@ fun UnstyledTextField(
                 isError = isError,
                 interactionSource = interactionSource,
                 contentPadding = PaddingValues(horizontal = 16.dp),
-                colors = TextFieldDefaults.colors(
-                    disabledContainerColor = Color.Transparent,
-                    focusedContainerColor = Color.Transparent,
-                    unfocusedContainerColor = Color.Transparent,
-                    focusedTextColor = Color.Transparent,
-                    unfocusedTextColor = Color.Transparent,
+                colors = TextFieldDefaults.textFieldColors(
+                    containerColor = Color.Transparent,
+                    focusedTextColor = TextPrimary,
+                    unfocusedTextColor = TextPrimary,
+                    disabledTextColor = TextPrimary,
+                    errorTextColor = Color.Red,
                     cursorColor = Primary,
                     focusedIndicatorColor = Color.Transparent,
                     unfocusedIndicatorColor = Color.Transparent,

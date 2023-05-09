@@ -12,7 +12,6 @@ import androidx.compose.ui.unit.dp
 import com.devsphere.yourmoney.R
 import com.devsphere.yourmoney.ui.theme.*
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PickerTrigger(
     label: String,

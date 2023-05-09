@@ -5,7 +5,7 @@
 This is an Expense Tracker app build using only Jetpack Compose and Material3 Icons.
 
 
-## Acknowledgements
+## Google PlayStore Link:
 Google PlayStore link will be updated soon
 
 

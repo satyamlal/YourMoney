@@ -40,6 +40,8 @@ This is an Expense Tracker app build using only Jetpack Compose and Material3 Ic
 | TopAppBarBackground | ![#28282B](https://placehold.co/15x15/28282B/28282B.png) `#28282B` |
 | FillTertiary | ![#28282B](https://placehold.co/15x15/28282B/28282B.png) `#28282B` |
 
+
+
 ## Features
 
 - Dark Mode
@@ -49,6 +51,8 @@ This is an Expense Tracker app build using only Jetpack Compose and Material3 Ic
 - All the expenses will be displayed with charts for ease
 - Chart is swipeable to left and right in Reports screen
 - Expenses is filtered using a dropdown menu
+
+
 
 ## Screenshots
 
@@ -72,6 +76,35 @@ Add Page:
 
 Reports Page:
 <img src="https://github.com/satyamlal/YourMoney/assets/26645754/cb316b90-fed1-4c26-834f-84f8e4c37a9b" width="250">
+
+
+
+## Tech Stack
+
+**Client:** Kotlin, Jetpack Compose
+
+**Database:** MongoDB, Realmdb
+
+
+
+## 🛠 Skills
+Kotlin, Jetpack Compose, Material Design, MVVM Pattern, Database handling
+
+
+
+
+## Deployment
+
+Currently in BETA version. Fully stable version will be uploaded soon
+
+
+## 🚀 About Me
+I'm a full stack Android Developer, with expertise in Jetpack Compose using kotlin, and UI designs...
+
+
+## 🔗 Links
+[![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/satyamlal/)
+
 
 
 ## How to Revert Back to the previous version?

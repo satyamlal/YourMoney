@@ -58,19 +58,19 @@ Expense Page:
 Settings Page:
 <img src="https://github.com/satyamlal/YourMoney/assets/26645754/dd8fa487-f488-471f-aab6-a1c6a6667ab3" width="250">
 
-Categories Page: With some added categories
+Categories Page:
 <img src="https://github.com/satyamlal/YourMoney/assets/26645754/68265d59-e0f8-4842-8b6c-62ff64b8f64f" width="250">
 
-Categories Page: Custom category can be added
+Categories Page:
 <img src="https://github.com/satyamlal/YourMoney/assets/26645754/60d9d117-df94-4ba0-a155-ed2e42320edd" width="250">
 
-Add Page: with added custom categories
+Add Page:
 <img src="https://github.com/satyamlal/YourMoney/assets/26645754/970ae94b-6fd5-4ba4-ad23-a60341ab2a7a" width="250">
 
-Add Page: Custom Date Feature
+Add Page:
 <img src="https://github.com/satyamlal/YourMoney/assets/26645754/0de6acab-d4df-4fdd-b5bc-ffab4f421c05" width="250">
 
-Reports Page: With Extra
+Reports Page:
 <img src="https://github.com/satyamlal/YourMoney/assets/26645754/cb316b90-fed1-4c26-834f-84f8e4c37a9b" width="250">
 
 

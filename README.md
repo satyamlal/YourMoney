@@ -19,9 +19,10 @@ This is an Expense Tracker app build using only Jetpack Compose and Material3 Ic
 
 ## Badges
 
-[Realm db (https://webimages.mongodb.com/_com_assets/cms/ku4ddeuf4tkw2nhdr-realm_social_share.png)](https://www.mongodb.com/docs/realm/sdk/kotlin/install/#std-label-kotlin-install-android)
+![RealmDB](https://img.shields.io/badge/realmdb-Realm%20DB-%2359569E)
 
-[Sentry (https://vectorlogoseek.com/wp-content/uploads/2020/02/sentry-io-vector-logo.png)](https://opensource.org/licenses/)
+![Sentry.io](https://img.shields.io/badge/Sentry-Sentry.io-%233A3A3C)
+
 
 
 ## Color Reference
@@ -39,8 +40,6 @@ This is an Expense Tracker app build using only Jetpack Compose and Material3 Ic
 | TopAppBarBackground | ![#28282B](https://placehold.co/15x15/28282B/28282B.png) `#28282B` |
 | FillTertiary | ![#28282B](https://placehold.co/15x15/28282B/28282B.png) `#28282B` |
 
-
-
 ## Features
 
 - Dark Mode
@@ -56,7 +55,7 @@ This is an Expense Tracker app build using only Jetpack Compose and Material3 Ic
 
 ## How to Revert Back to the previous version?
 
-Jumping back to the previous version of my code after coding and fixing bugs for the last 2 days, because I am getting a lot of unexpectional error.
+Jumping back to the previous version of my code after coding and fixing bugs for the last 2 days, because I am getting a lot of unexpected error.
 And this problem taught me how to revert back to the previous version of my repo.
 
 ```bash

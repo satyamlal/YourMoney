@@ -14,6 +14,7 @@ import com.devsphere.yourmoney.ui.theme.LabelSecondary
 import com.devsphere.yourmoney.utils.simplifyNumber
 import com.github.tehras.charts.bar.BarChart
 import com.github.tehras.charts.bar.BarChartData
+import com.github.tehras.charts.bar.BarChartData.Bar
 import com.github.tehras.charts.bar.renderer.yaxis.SimpleYAxisDrawer
 import java.time.DayOfWeek
 
@@ -24,40 +25,41 @@ fun WeeklyChart(expenses: List<Expense>) {
     BarChart(
         barChartData = BarChartData(
             bars = listOf(
-                BarChartData.Bar(
+                Bar(
                     label = DayOfWeek.MONDAY.name.substring(0, 1),
-                    value = groupedExpenses[DayOfWeek.MONDAY.name]?.total?.toFloat() ?: 0f,
+                    value = groupedExpenses[DayOfWeek.MONDAY.name]?.total?.toFloat()
+                        ?: 0f,
                     color = Color.White,
                 ),
-                BarChartData.Bar(
+                Bar(
                     label = DayOfWeek.TUESDAY.name.substring(0, 1),
                     value = groupedExpenses[DayOfWeek.TUESDAY.name]?.total?.toFloat() ?: 0f,
-                    color = Color.White,
+                    color = Color.White
                 ),
-                BarChartData.Bar(
+                Bar(
                     label = DayOfWeek.WEDNESDAY.name.substring(0, 1),
                     value = groupedExpenses[DayOfWeek.WEDNESDAY.name]?.total?.toFloat() ?: 0f,
-                    color = Color.White,
+                    color = Color.White
                 ),
-                BarChartData.Bar(
+                Bar(
                     label = DayOfWeek.THURSDAY.name.substring(0, 1),
                     value = groupedExpenses[DayOfWeek.THURSDAY.name]?.total?.toFloat() ?: 0f,
-                    color = Color.White,
+                    color = Color.White
                 ),
-                BarChartData.Bar(
+                Bar(
                     label = DayOfWeek.FRIDAY.name.substring(0, 1),
                     value = groupedExpenses[DayOfWeek.FRIDAY.name]?.total?.toFloat() ?: 0f,
-                    color = Color.White,
+                    color = Color.White
                 ),
-                BarChartData.Bar(
+                Bar(
                     label = DayOfWeek.SATURDAY.name.substring(0, 1),
                     value = groupedExpenses[DayOfWeek.SATURDAY.name]?.total?.toFloat() ?: 0f,
-                    color = Color.White,
+                    color = Color.White
                 ),
-                BarChartData.Bar(
+                Bar(
                     label = DayOfWeek.SUNDAY.name.substring(0, 1),
                     value = groupedExpenses[DayOfWeek.SUNDAY.name]?.total?.toFloat() ?: 0f,
-                    color = Color.White,
+                    color = Color.White
                 ),
             )
         ),
@@ -65,11 +67,12 @@ fun WeeklyChart(expenses: List<Expense>) {
         yAxisDrawer = SimpleYAxisDrawer(
             labelTextColor = LabelSecondary,
             labelValueFormatter = ::simplifyNumber,
+            labelRatio = 7,
             labelTextSize = 14.sp
         ),
         barDrawer = BarDrawer(recurrence = Recurrence.Weekly),
         modifier = Modifier
-            .padding(bottom = 16.dp)
+            .padding(bottom = 20.dp)
             .fillMaxSize()
     )
 }

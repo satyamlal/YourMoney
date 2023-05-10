@@ -92,8 +92,9 @@ fun ReportPage(
 
         Box(
             modifier = Modifier
-                .height(180.dp)
+                .height(200.dp)
                 .padding(vertical = 16.dp)
+                .padding(start = 12.dp)
         ) {
             when (recurrence) {
                 Recurrence.Weekly -> WeeklyChart(expenses = uiState.expenses)

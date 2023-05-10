@@ -4,9 +4,9 @@ import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.graphics.Canvas
 import androidx.compose.ui.graphics.Paint
 import androidx.compose.ui.graphics.drawscope.DrawScope
+import com.github.tehras.charts.bar.BarChartData
 import com.devsphere.yourmoney.models.Recurrence
 import com.devsphere.yourmoney.ui.theme.SystemGray04
-import com.github.tehras.charts.bar.BarChartData
 
 class BarDrawer constructor(recurrence: Recurrence) :
     com.github.tehras.charts.bar.renderer.bar.BarDrawer {
@@ -14,7 +14,7 @@ class BarDrawer constructor(recurrence: Recurrence) :
         this.isAntiAlias = true
     }
 
-    private val rightOffset = when(recurrence) {
+    private val rightOffset = when (recurrence) {
         Recurrence.Weekly -> 24f
         Recurrence.Monthly -> 6f
         Recurrence.Yearly -> 18f

@@ -27,13 +27,11 @@ fun MonthlyChart(expenses: List<Expense>, month: LocalDate) {
         barChartData = BarChartData(
             bars = buildList() {
                 for (i in 1..numberOfDays) {
-                    add(
-                        BarChartData.Bar(
-                            label = "$i",
-                            value = groupedExpenses[i]?.total?.toFloat() ?: 0f,
-                            color = Color.White,
-                        )
-                    )
+                    add(BarChartData.Bar(
+                        label = "$i",
+                        value = groupedExpenses[i]?.total?.toFloat() ?: 0f,
+                        color = Color.White,
+                    ))
                 }
             }
         ),

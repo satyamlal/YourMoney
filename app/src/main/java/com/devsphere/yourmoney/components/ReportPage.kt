@@ -57,20 +57,18 @@ fun ReportPage(
         ) {
             Column {
                 Text(
-                    "${
-                        uiState.dateStart.formatDayForRange()
-                    } - ${uiState.dateEnd.formatDayForRange()}",
+                    "${uiState.dateStart.formatDayForRange()} - ${uiState.dateEnd.formatDayForRange()}",
                     style = Typography.titleSmall
                 )
                 Row(modifier = Modifier.padding(top = 4.dp)) {
                     Text(
-                        "USD",
+                        "₹",
                         style = Typography.bodyMedium,
                         color = LabelSecondary,
                         modifier = Modifier.padding(end = 4.dp)
                     )
                     Text(
-                        DecimalFormat("0.#").format(uiState.totalInRange),
+                        DecimalFormat("#.##").format(uiState.totalInRange),
                         style = Typography.headlineMedium
                     )
                 }
@@ -79,13 +77,13 @@ fun ReportPage(
                 Text("Avg/day", style = Typography.titleSmall)
                 Row(modifier = Modifier.padding(top = 4.dp)) {
                     Text(
-                        "USD",
+                        "₹",
                         style = Typography.bodyMedium,
                         color = LabelSecondary,
                         modifier = Modifier.padding(end = 4.dp)
                     )
                     Text(
-                        DecimalFormat("0.#").format(uiState.avgPerDay),
+                        DecimalFormat("#.##").format(uiState.avgPerDay),
                         style = Typography.headlineMedium
                     )
                 }

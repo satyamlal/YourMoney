@@ -81,7 +81,7 @@ fun Expenses(
                 }
                 Row(modifier = Modifier.padding(vertical = 32.dp)) {
                     Text(
-                        "$",
+                        "₹",
                         style = Typography.bodyMedium,
                         color = LabelSecondary,
                         modifier = Modifier.padding(end = 4.dp, top = 4.dp)

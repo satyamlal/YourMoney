@@ -20,7 +20,6 @@ fun LocalDate.formatDay(): String {
 
 fun LocalDateTime.formatDayForRange(): String {
     val today = LocalDateTime.now()
-    val yesterday = today.minusDays(1)
 
     return when {
         this.year != today.year -> this.format(DateTimeFormatter.ofPattern("dd MMM yyyy"))

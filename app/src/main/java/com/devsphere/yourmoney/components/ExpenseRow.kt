@@ -23,7 +23,7 @@ fun ExpenseRow(expense: Expense, modifier: Modifier = Modifier) {
                 style = Typography.headlineMedium
             )
             Text(
-                "USD ${DecimalFormat("0.#").format(expense.amount)}",
+                "₹ ${DecimalFormat("#.##").format(expense.amount)}",
                 style = Typography.headlineMedium
             )
         }

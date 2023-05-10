@@ -7,14 +7,15 @@ import com.devsphere.yourmoney.models.Category
 import com.devsphere.yourmoney.models.Expense
 import com.devsphere.yourmoney.models.Recurrence
 import io.realm.kotlin.ext.query
-import io.realm.kotlin.notifications.ResultsChange
 import io.realm.kotlin.query.RealmResults
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.time.LocalDateTime
-import java.util.Currency
 
 data class AddScreenState(
     val amount: String = "",

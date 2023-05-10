@@ -1,7 +1,5 @@
 package com.devsphere.yourmoney.utils
 
-import java.text.DecimalFormat
-
 fun simplifyNumber(value: Float): String {
     return when {
         value >= 1e9 -> "${"%.2f".format(value/1e9)} B"
